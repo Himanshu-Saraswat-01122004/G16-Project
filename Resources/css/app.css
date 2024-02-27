@@ -1,0 +1,29 @@
+.box {
+    height: 262px; 
+    width: 275px; 
+    border: 1px solid; 
+    border-radius: 5%; 
+    background-color: white; 
+    padding-left: 50px; 
+    padding-right: 50px; 
+    padding-top: 10px; 
+    padding-bottom: 10px;
+
+}
+
+.bluebox{
+    height: 200px; 
+    width: 200px; 
+    border: 1px solid rgba(198,232,243,255); 
+    border-radius: 20%; 
+    background-color: rgba(232,251,255,255); 
+    padding-left: 50px; 
+    padding-right: 50px; 
+    padding-top: 10px; 
+    padding-bottom: 10px;
+}
+    
+.line{
+    border-top: 5px solid rgba(198,232,243,255);
+    border-bottom: 5px solid rgba(232,251,255,255);
+ }
