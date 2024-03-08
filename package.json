@@ -4,7 +4,8 @@
   "description": "<p>We have made a home page like thing till now</p>",
   "main": "index.js",
   "scripts": {
-    "start": "npx tailwindcss -i Resources/css/input.css -o Resources/css/output.css --watch"
+    "build": "npx tailwindcss -i ./public/css/input.css -o ./public/css/output.css --watch",
+    "start": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
@@ -12,5 +13,12 @@
   "devDependencies": {
     "tailwindcss": "^3.4.1",
     "vite": "^5.1.4"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.3",
+    "mongoose": "^8.2.1",
+    "nodemon": "^3.1.0"
   }
 }

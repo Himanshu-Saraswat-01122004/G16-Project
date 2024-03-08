@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Radius - Signin/Signup</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/loginki.css">
+    <link rel="stylesheet" href="css/output.css">
+</head>
+
+<body>
+    <div class="box -mt-4">
+        <div class="contain" id="container">
+            <div class="form-container sign-up-container">
+                <form action="/signup" method="POST">
+                    <div class="logo flex mt-24 ">
+                        <img src="https://static.vecteezy.com/system/resources/previews/017/785/212/non_2x/money-icon-on-transparent-background-free-png.png"
+                        class=" h-16 -mt-32">
+                        <span class=" -mt-28 font-semibold text-3xl cursor-pointer">XChange</span>
+                    </div>
+                    <h1 class="-ml-40">Create Account</h1>
+                    <!-- <div class="social-container">
+                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                    </div> -->
+                    <!-- <span>or use your email for registration</span> -->
+                    <!-- <p> or use your email for registration</p> -->
+                    <input type="text" name = "name" placeholder="Name" />
+                    <input type="email" name = "username" placeholder="Email" />
+                    <input type="password" name = "password" placeholder="Password" />
+                    <button class="bg-[#008ecf] px-9 py-2 rounded-full text-white font-semibold">Sign Up</button>
+                </form>
+            </div>
+            <div class="form-container sign-in-container">
+                <form action="/signin" method="POST">
+                    <div class="logo flex mt-24">
+                        <img src="https://static.vecteezy.com/system/resources/previews/017/785/212/non_2x/money-icon-on-transparent-background-free-png.png"
+                        class="h-16 -mt-32">
+                        <span class=" -mt-28 font-semibold text-3xl cursor-pointer">XChange</span>
+                    </div>
+                    <h1 class="-ml-56">Sign in</h1>
+                    <!-- <div class="social-container">
+                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                    </div> -->
+                    <!-- <span>or use your account</span> -->
+                    <input type="email" name = "username" placeholder="Email" />
+                    <input type="password" name="password" placeholder="Password" />
+                    <a href="#">Forgot your password?</a>
+                    <button class="bg-[#008ecf] px-9 py-2 rounded-full text-white font-semibold" >Sign In</button>
+                </form>
+            </div>
+            <div class="overlay-container">
+                <div class="overlay">
+                    <img class = "h-full mt-16" src = "img/global-banner-illustration.svg">
+                    <div class="overlay-panel overlay-left -mt-28">
+                        <h1 class = "text-black text-3xl font-medium">Welcome Back!</h1>
+                        <p class = "text-black text-base font-medium">To keep connected with us please login with your personal info</p>
+                        <button class="ghost mt-16 bg-[#008ecf] px-9 py-2 rounded-full border-solid border-2 border-white text-white font-semibold" id="signIn">Sign In</button>
+                    </div>
+                    <div class="overlay-panel overlay-right -mt-28">
+                        <h1 class = "text-black text-3xl font-medium">Hello, India!</h1>
+                        <p class = "text-black text-base font-medium">Enter your personal details and start journey with us</p>
+                        <button class="ghost mt-16 bg-[#008ecf] px-9 py-2 rounded-full border-solid border-2 border-white text-white font-semibold" id="signUp">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="js/Script.js"></script>
+    </div>
+</body>
+
+</html>
