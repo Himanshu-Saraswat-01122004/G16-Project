@@ -27,11 +27,14 @@ const newuser = new mongoose.Schema({
     password: String
 });
 const User = mongoose.model('User', newuser);
-app.get('/',(req,res)=>{
+app.get('/', (req, res) => {
     res.render('Home.ejs');
 });
-app.get('/login', (req, res)=>{
+app.get('/login', (req, res) => {
     res.render('login.ejs');
+});
+app.get('/dashboard', (req, res) => {
+    res.render('dashboard.ejs');
 });
 app.post('/logo', (req, res) => {
     res.redirect('/');
@@ -46,19 +49,19 @@ app.post('/signup', async (req, res) => {
         password: req.body.password
     });
     await user.save()
-    .then(()=>{
-        res.status(200);
-    })
-    .catch(err => {
-        console.log(`err: ${err}`);
-    });
+        .then(() => {
+            res.status(200);
+        })
+        .catch(err => {
+            console.log(`err: ${err}`);
+        });
     res.redirect('/');
 });
 
 app.post('/signin', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    const user = await User .findOne({ username: username, password: password });
+    const user = await User.findOne({ username: username, password: password });
     if (user) {
         res.redirect('/');
     } else {

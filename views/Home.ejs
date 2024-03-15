@@ -2,82 +2,543 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link type = "text/css" rel="stylesheet"  href="css/style.css">
-    <link type = "text/css" rel="stylesheet"  href="css/output.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/output.css">
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <script src="/public/js/navbar.js"></script>
+  <script src="/public/js/Script.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      height: 70px;
+      background: #eff6ff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      z-index: 99;
+    }
+
+    nav .navbar {
+      height: 100%;
+      max-width: 1250px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: auto;
+      /* background: red; */
+      padding: 0 50px;
+    }
+
+    .navbar .logo a {
+      font-size: 30px;
+      color: #000;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    nav .navbar .nav-links {
+      line-height: 70px;
+      height: 100%;
+    }
+
+    nav .navbar .links {
+      display: flex;
+    }
+
+    nav .navbar .links li {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      list-style: none;
+      padding: 0 14px;
+    }
+
+    nav .navbar .links li a {
+      height: 100%;
+      text-decoration: none;
+      white-space: nowrap;
+      color: #000;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .links li:hover .htmlcss-arrow,
+    .links li:hover .js-arrow {
+      transform: rotate(180deg);
+    }
+
+    nav .navbar .links li .arrow {
+      /* background: red; */
+      height: 100%;
+      width: 22px;
+      line-height: 70px;
+      text-align: center;
+      display: inline-block;
+      color: #000;
+      transition: all 0.3s ease;
+    }
+
+    nav .navbar .links li .sub-menu {
+      position: absolute;
+      top: 70px;
+      left: 0;
+      line-height: 40px;
+      background: #eff6ff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      border-radius: 0 0 4px 4px;
+      display: none;
+      z-index: 2;
+    }
+
+    nav .navbar .links li:hover .htmlCss-sub-menu,
+    nav .navbar .links li:hover .js-sub-menu {
+      display: block;
+    }
+
+    .navbar .links li .sub-menu li {
+      padding: 0 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar .links li .sub-menu a {
+      color: #000;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .navbar .links li .sub-menu .more-arrow {
+      line-height: 40px;
+    }
+
+    .navbar .links li .htmlCss-more-sub-menu {
+      /* line-height: 40px; */
+    }
+
+    .navbar .links li .sub-menu .more-sub-menu {
+      position: absolute;
+      top: 0;
+      left: 100%;
+      border-radius: 0 4px 4px 4px;
+      z-index: 1;
+      display: none;
+    }
+
+    .links li .sub-menu .more:hover .more-sub-menu {
+      display: block;
+    }
+
+    .navbar .search-box {
+      position: relative;
+      height: 40px;
+      width: 40px;
+    }
+
+    .navbar .search-box i {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      line-height: 40px;
+      text-align: center;
+      font-size: 22px;
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .navbar .search-box .input-box {
+      position: absolute;
+      right: calc(100% - 40px);
+      top: 80px;
+      height: 60px;
+      width: 300px;
+      background: #eff6ff;
+      border-radius: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s ease;
+    }
+
+    .navbar.showInput .search-box .input-box {
+      top: 65px;
+      opacity: 1;
+      pointer-events: auto;
+      background: #eff6ff;
+    }
+
+    .search-box .input-box::before {
+      content: '';
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      background: #3E8DA8;
+      right: 10px;
+      top: -6px;
+      transform: rotate(45deg);
+    }
+
+    .search-box .input-box input {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border-radius: 4px;
+      transform: translate(-50%, -50%);
+      height: 35px;
+      width: 280px;
+      outline: none;
+      padding: 0 15px;
+      font-size: 16px;
+      border: none;
+    }
+
+    .navbar .nav-links .sidebar-logo {
+      display: none;
+    }
+
+    .navbar .bx-menu {
+      display: none;
+    }
+
+    @media (max-width:200000px) {
+      nav .navbar {
+        max-width: 100%;
+        padding: 0 25px;
+      }
+
+      nav .navbar .logo a {
+        font-size: 27px;
+      }
+
+      nav .navbar .links li {
+        padding: 0 10px;
+        white-space: nowrap;
+      }
+
+      nav .navbar .links li a {
+        font-size: 15px;
+      }
+    }
+
+    @media (max-width:700px) {
+      nav {
+        position: relative;
+      }
+
+      .navbar .bx-menu {
+        display: block;
+      }
+
+      .search-box .input-box input {
+        transform: translate(100%, 10%);
+        height: 100%;
+        width: 50%;
+      }
+
+      nav .navbar .nav-links {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        display: block;
+        max-width: 270px;
+        width: 100%;
+        background: #eff6ff;
+        line-height: 40px;
+        padding: 20px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.5s ease;
+        z-index: 1000;
+      }
+
+      .navbar .nav-links .sidebar-logo {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .sidebar-logo .logo-name {
+        font-size: 25px;
+        color: #000;
+      }
+
+      .sidebar-logo i,
+      .navbar .bx-menu {
+        font-size: 25px;
+        color: #000;
+      }
+
+      nav .navbar .links {
+        display: block;
+        margin-top: 20px;
+      }
+
+      nav .navbar .links li .arrow {
+        line-height: 40px;
+      }
+
+      nav .navbar .links li {
+        display: block;
+      }
+
+      nav .navbar .links li .sub-menu {
+        position: relative;
+        top: 0;
+        box-shadow: none;
+        display: none;
+      }
+
+      nav .navbar .links li .sub-menu li {
+        border-bottom: none;
+
+      }
+
+      .navbar .links li .sub-menu .more-sub-menu {
+        display: none;
+        position: relative;
+        left: 0;
+      }
+
+      .navbar .links li .sub-menu .more-sub-menu li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .links li:hover .htmlcss-arrow,
+      .links li:hover .js-arrow {
+        transform: rotate(0deg);
+      }
+
+      .navbar .links li .sub-menu .more-sub-menu {
+        display: none;
+      }
+
+      .navbar .links li .sub-menu .more span {
+        /* background: red; */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .links li .sub-menu .more:hover .more-sub-menu {
+        display: none;
+      }
+
+      nav .navbar .links li:hover .htmlCss-sub-menu,
+      nav .navbar .links li:hover .js-sub-menu {
+        display: none;
+      }
+
+      .navbar .nav-links.show1 .links .htmlCss-sub-menu,
+      .navbar .nav-links.show3 .links .js-sub-menu,
+      .navbar .nav-links.show2 .links .more .more-sub-menu {
+        display: block;
+      }
+
+      .navbar .nav-links.show1 .links .htmlcss-arrow,
+      .navbar .nav-links.show3 .links .js-arrow {
+        transform: rotate(180deg);
+      }
+
+      .navbar .nav-links.show2 .links .more-arrow {
+        transform: rotate(90deg);
+      }
+    }
+
+    @media (max-width:370px) {
+      nav .navbar .nav-links {
+        max-width: 100%;
+      }
+    }
+
+    .box {
+      height: 262px;
+      width: 275px;
+      border: 1px solid;
+      border-radius: 5%;
+      background-color: white;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+
+    }
+
+    .bluebox {
+      height: 200px;
+      width: 200px;
+      border: 1px solid rgba(198, 232, 243, 255);
+      border-radius: 20%;
+      background-color: rgba(232, 251, 255, 255);
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    .line {
+      border-top: 5px solid rgba(198, 232, 243, 255);
+      border-bottom: 5px solid rgba(232, 251, 255, 255);
+    }
+
+    @media (min-width: 600px) {
+
+      .navbar .search-box,
+      .navbar .login-btn {
+        display: flex;
+        /* Display search and login icons in the sidebar */
+        align-items: center;
+        /* Center align vertically */
+        margin-right: 20px;
+        /* Add some spacing */
+      }
+    }
+  </style>
 </head>
 
 <body class="bd">
-    <nav class="navbar navbar-expand-lg sticky-top" style="background-color: #c6e3f3;">
-        <div class="container-fluid">
-            <a class="navbar-brand" action = "/logo" method = "POST" href="">
-              <img src="https://static.vecteezy.com/system/resources/previews/017/785/212/non_2x/money-icon-on-transparent-background-free-png.png"
-              class="h-12" atl="" srcset="">
-                <!-- <img src="img/images.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top"> -->
-                <!-- Xchange -->
-                <p class="ml-16 -mt-10 font-medium text-2xl flex cursor-pointer">XChange</p>
-            </a>
-            
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class = "mr-auto">
-            <ul class = "flex p-2 space-x-6 mt-2">
-              <li>
-                <a class = "text-lg cursor-pointer">Home</a>
-              </li>
-              <li>
-                <a class = "text-lg cursor-pointer">Features</a>
-              </li>
-              <li>
-                <a class = "text-lg cursor-pointer">Pricing</a>
+  <nav>
+    <div class="navbar">
+      <i class='bx bx-menu'></i>
+      <a class="navbar-brand logo" action="/logo" method="POST" href="">
+        <img
+          src="https://static.vecteezy.com/system/resources/previews/017/785/212/non_2x/money-icon-on-transparent-background-free-png.png"
+          class="h-12" alt="" srcset="" alt="XChange">
+        <p class="ml-16 -mt-10 font-medium text-2xl flex cursor-pointer">XChange</p>
+      </a>
+      <div class="nav-links">
+        <div class="sidebar-logo">
+          <span class="logo-name"> <img
+              src="https://static.vecteezy.com/system/resources/previews/017/785/212/non_2x/money-icon-on-transparent-background-free-png.png"
+              class="h-12" alt="" srcset="" alt="XChange"></span>
+          <i class='bx bx-x'></i>
+        </div>
+        <ul class="links">
+          <li><a href="#">HOME</a></li>
+          <li>
+            <a href="#">FEATURES</a>
+            <i class='bx bxs-chevron-down htmlcss-arrow arrow'></i>
+            <ul class="htmlCss-sub-menu sub-menu">
+              <li><a href="#">Feature 1</a></li>
+              <li><a href="#">Feature 2</a></li>
+              <li><a href="#">Feature 3</a></li>
+              <li class="more">
+                <span><a href="#">More</a>
+                  <i class='bx bxs-chevron-right arrow more-arrow'></i>
+                </span>
+                <ul class="more-sub-menu sub-menu">
+                  <li><a href="#">Sub-feature 1</a></li>
+                  <li><a href="#">Sub-feature 2</a></li>
+                  <li><a href="#">Sub-feature 3</a></li>
+                </ul>
               </li>
             </ul>
-          </div>
-          <!-- <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-              </li>q
-            </ul>
-          </div> -->
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-        <a href="/login"><button type="button" class="btn btn-outline-danger" style="margin-left: 5px;">LOGIN</button></a>
+          </li>
+          <li>
+            <a href="#">PRICING</a>
+          </li>
+          <li>
+            <a href="/login" class="login-btn">LOGIN </a>
+          </li>
+          <li>
+            <div class="search-box">
+              <i class='bx bx-search'></i>
+              <div class="input-box">
+                <input type="text" placeholder="Search..." class="p-2 border rounded-md">
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
-    </nav>
-    <div>
-      <div class="d-flex justify-content-evenly" style="padding-top: 50px; padding-bottom: 50px;">
-        <div>
+    </div>
+  </nav>
+  <script>
+    // search-box open close js code
+    let navbar = document.querySelector(".navbar");
+    let searchBox = document.querySelector(".search-box .bx-search");
+    // let searchBoxCancel = document.querySelector(".search-box .bx-x");
+
+    searchBox.addEventListener("click", () => {
+      navbar.classList.toggle("showInput");
+      if (navbar.classList.contains("showInput")) {
+        searchBox.classList.replace("bx-search", "bx-x");
+      } else {
+        searchBox.classList.replace("bx-x", "bx-search");
+      }
+    });
+
+    // sidebar open close js code
+    let navLinks = document.querySelector(".nav-links");
+    let menuOpenBtn = document.querySelector(".navbar .bx-menu");
+    let menuCloseBtn = document.querySelector(".nav-links .bx-x");
+    menuOpenBtn.onclick = function () {
+      navLinks.style.left = "0";
+    }
+    menuCloseBtn.onclick = function () {
+      navLinks.style.left = "-100%";
+    }
+
+
+    // sidebar submenu open close js code
+    let htmlcssArrow = document.querySelector(".htmlcss-arrow");
+    htmlcssArrow.onclick = function () {
+      navLinks.classList.toggle("show1");
+    }
+    let moreArrow = document.querySelector(".more-arrow");
+    moreArrow.onclick = function () {
+      navLinks.classList.toggle("show2");
+    }
+    let jsArrow = document.querySelector(".js-arrow");
+    jsArrow.onclick = function () {
+      navLinks.classList.toggle("show3");
+    }
+  </script>
+  <div style="margin-top: 50px ;">
+    <div class="d-flex justify-content-evenly" style="padding-top: 50px; padding-bottom: 50px;">
+      <div>
         <div class="text-body-secondary fs-4">Hello Invester!</div>
         <div class="fs-3 fw-bold">Your wealth creation<br>
           journey starts here!</div>
-          <a href="/login"><button type = "button" class = "bg-blue-600 px-3 py-2 text-lg rounded-lg hover:bg-blue-700 text-white font-normal" href="/login">LOGIN</button></a>
-          <!-- <div><button type="button" class="btn btn-primary btn-lg">LOGIN</button></div> -->
+        <a href="/login"><button type="button"
+            class="bg-blue-600 px-3 py-2 text-lg rounded-lg hover:bg-blue-700 text-white font-normal"
+            href="/login">LOGIN</button></a>
+        <!-- <div><button type="button" class="btn btn-primary btn-lg">LOGIN</button></div> -->
       </div>
-      
+
       <div class="d-flex">
         <div class="bluebox" style="margin: 10px;"></div>
         <div class="bluebox" style="margin: 10px;"></div>
         <div class="bluebox" style="margin: 10px;"></div>
       </div>
-      </div>
     </div>
-    <div style="background-color: aliceblue; padding-top: 50px; padding-bottom: 50px;" >
-    <div class="container" >
+  </div>
+  <div style="background-color: aliceblue; padding-top: 50px; padding-bottom: 50px;">
+    <div class="container">
       <h3 class="text-center">21 Million+ users trust us for their Investments</h3>
-      <p class="text-center">Leader & pioneer in low-cost & commission-free investing, we provide access to investing for Indians and help them achieve their financial goals.</p>
+      <p class="text-center">Leader & pioneer in low-cost & commission-free investing, we provide access to investing
+        for Indians and help them achieve their financial goals.</p>
       <div class="d-flex justify-content-evenly" style="padding-top: 50px;">
         <div class="box text-center">
           <img src="img/mutual_funds (1).png" alt="mutual_funds" height="125px" width="125px">
@@ -104,12 +565,16 @@
     <div class="text-center">
       <div class="fs-2 fw-semibold">Why Xchange?</div>
       <div class="fs-4">Simple. Transparent. Accessible.</div>
-      <div class="blockquote">Our investment offerings give you a wide access to products and services to invest, manage money and achieve your financial goals.Start Investing</div>
-      <div><button type = "button" class = "bg-blue-600 px-3 py-2 text-xl rounded-lg hover:bg-blue-700 text-white font-normal ">Start Investing</button></div>
+      <div class="blockquote">Our investment offerings give you a wide access to products and services to invest, manage
+        money and achieve your financial goals.Start Investing</div>
+      <div><button type="button"
+          class="bg-blue-600 px-3 py-2 text-xl rounded-lg hover:bg-blue-700 text-white font-normal ">Start
+          Investing</button></div>
       <!-- <div><button type="button" class="btn btn-primary btn-lg">Start Investing</button></div> -->
     </div>
     <div>
-      <img src="img/Untitled-removebg-preview.png" alt="photo" class="img-fluid mx-auto d-block" style="height: auto; width: 800px;">
+      <img src="img/Untitled-removebg-preview.png" alt="photo" class="img-fluid mx-auto d-block"
+        style="height: auto; width: 800px;">
     </div>
     <div class="line"></div>
   </div>
@@ -117,16 +582,21 @@
     <div class="container">
       <div class="d-flex justify-content-between">
         <div>
-          <div><p class="text-info mb-0 display-6 fw-semibold">Stay informed</p></div>
-          <div><p class="text-white">Sign up for our newspaper.</p></div>
+          <div>
+            <p class="text-info mb-0 display-6 fw-semibold">Stay informed</p>
+          </div>
+          <div>
+            <p class="text-white">Sign up for our newspaper.</p>
+          </div>
         </div>
         <div>
           <form>
             <div class="mb-3">
-            <div class="d-flex row">
-            <div class="col"><input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email"></div>
-            <div class="col"><button type="submit" class="btn btn-primary">Subscribe -></button></div>
-            </div>
+              <div class="d-flex row">
+                <div class="col"><input type="email" class="form-control" id="exampleInputEmail1"
+                    aria-describedby="emailHelp" placeholder="Email"></div>
+                <div class="col"><button type="submit" class="btn btn-primary">Subscribe -></button></div>
+              </div>
             </div>
           </form>
         </div>
@@ -158,23 +628,40 @@
         </div>
         <div class="col">
           <p class="text-info">PRIVACY & SECURITY</p>
-          <a href="#" class="text-decoration-none"><p class="text-light">Pledge to Donors</p></a>
-          <a href="#" class="text-decoration-none"><p class="text-light">Privacy Policy</p></a>
-          <a href="#" class="text-decoration-none"><p class="text-light">Social Media policy</p></a>
-          <a href="#" class="text-decoration-none"><p class="text-light">Copyright Notice</p></a>
+          <a href="#" class="text-decoration-none">
+            <p class="text-light">Pledge to Donors</p>
+          </a>
+          <a href="#" class="text-decoration-none">
+            <p class="text-light">Privacy Policy</p>
+          </a>
+          <a href="#" class="text-decoration-none">
+            <p class="text-light">Social Media policy</p>
+          </a>
+          <a href="#" class="text-decoration-none">
+            <p class="text-light">Copyright Notice</p>
+          </a>
         </div>
       </div>
       <hr class="text-light">
       <div>
         <p class="text-light">© Xchange Private Limited. CIN - U72900DLxxxxxx323936. All Rights Reserved. <br>
-        Registered with Pension Fund Regulatory and Development Authority (PFRDA). <br>
-        Investments in securities markets are subject to market risks, read all the related documents carefully before investing.</p>
+          Registered with Pension Fund Regulatory and Development Authority (PFRDA). <br>
+          Investments in securities markets are subject to market risks, read all the related documents carefully before
+          investing.</p>
       </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"></script>
+  <script src="/public/js/navbar.js"></script>
+  <script src="/public/js/Script.js"></script>
 </body>
 
 </html>
