@@ -4,810 +4,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Market Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-        integrity="sha512-XHxbdhrQmqbIyQHMDwFkCVwRLqSFXzYLBrutalBUmeIqUhyTqylNKD8mInjIzGOerrCrSU²~Bxq7UeLkLHKhGQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" src="/css/style.css">
     <style>
-        body {
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f2f2f2;
+        #loading_container {
+            display: none;
+            width: 200px;
+            margin-top: 1%;
+            margin-left: 45%;
+            margin-right: auto;
         }
 
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        #company_container {
+            margin-top: 5%;
+            margin-left: 32%;
+            margin-right: auto;
         }
 
-        .search-bar {
-            display: flex;
-            align-items: center;
+        #chartContainer {
+            height: 300px;
+            width: 70%;
+            margin-top: 5%;
+            margin-left: 13%;
+            margin-right: auto;
         }
 
-        .search-bar input {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-right: 10px;
-            flex: 1;
-            /* Allow input to expand on larger screens */
-        }
-
-        #search-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        /* Responsive Layout for Main Content */
-        main {
-            padding: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            /* Allow sections to wrap on smaller screens */
-        }
-
-        section {
-            flex: 1 1 30%;
-            /* Maintain 3-column layout for medium/large screens */
-            margin: 10px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #fff;
-        }
-
-        /* Media Queries for Smaller Screens */
-        @media only screen and (max-width: 768px) {
-            section {
-                flex: 1 0 100%;
-                /* Make sections stack vertically on small screens */
-            }
-        }
-
-        .trending-stocks .stock-list {
-            height: 250px;
-            overflow-y: auto;
-        }
-
-        .stock-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            cursor: pointer;
-            /* Make trending stocks clickable */
-        }
-
-        .stock-item:hover {
-            background-color: #f5f5f5;
-        }
-
-        .price-change {
-            display: flex;
-            align-items: center;
-        }
-
-        .price-change span {
-            margin-right: 5px;
-            font-weight: bold;
-        }
-
-        .price-change span.positive {
-            color: green;
-        }
-
-        .price-change span.negative {
-            color: red;
-        }
-
-        .watchlist ul,
-        .news-feed ul,
-        .quick-links ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        a {
-            text-decoration: none;
-            color: #333;
-        }
-
-        a:hover {
-            color: #666;
-        }
-
-        .chart-container {
+        #table_container {
+            margin-left: 30px;
+            margin-top: 5%;
             width: 100%;
-            height: 250px;
+            margin-right: 20px;
         }
 
-        .sorted-asc::after {
-            content: "";
-            display: inline-block;
-            width: 0px;
-            height: 0px;
-            border-left: 5px solid transparent;
+        #para {
+            font-weight: bold;
+            font-size: large;
+            text-align: center;
+            margin-bottom: 1%;
+        }
+
+        #download_data {
+            display: none;
+            margin-top: 20px;
+            margin-left: 42%;
+            margin-right: auto;
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <h1>Stock Market Dashboard</h1>
-        <div class="search-bar">
-            <input type="text" id="search-stock" placeholder="Search Stock Symbol">
-            <button id="search-button">Search</button>
+    <nav><%- include('partials/navbar.ejs') %></nav>
+
+    <div id="company_container" style="margin-top: 100px;">
+        <select id="companies" class="btn btn-light" name="companies">
+            <option value="Apple Inc(AAPL)">Apple Inc(AAPL)</option>
+            <option value="Microsoft Corp(MSFT)">Microsoft Corp(MSFT)</option>
+            <option value="International Business Machine(IBM)">International Business Machine(IBM)</option>
+        </select>
+        <button id="get_data" onclick="getData()"
+            class="bg-blue-600 px-3 py-2 text-l rounded-lg hover:bg-blue-700 text-white font-normal"
+            style="margin-left: 5%;">Get Data</button>
+    </div>
+    <div id="loading_container" style="margin-bottom: 100px;">
+        <h6 style="margin-left: 11%;">Loading data.....</h6>
+        <progress></progress>
+    </div>
+
+    <div style="background-color: aliceblue; padding-top: 10px; padding-bottom: 50px;">
+        <div class="container">
+            <button id="download_data" onclick="download()" class="btn btn-success">Download Data(CSV)</button>
+            <div id="chartContainer"></div>
+            <div id="table_container"></div>
         </div>
-    </header>
-    <main>
-        <section class="trending-stocks">
-            <h2>Trending Stocks</h2>
-            <div class="stock-list">
+    </div>
+    <div style="padding-top: 50px;">
+        <div class="text-center">
+            <div class="fs-2 fw-semibold">Personalize your watchlist</div>
+            <div class="fs-4" style="margin-bottom: 10px;">Track your favorite stocks.</div>
+            <!-- <div><a href="/watchlist"><button type="button" -->
+            <div><a href="#"><button type="button"
+                        class="bg-blue-600 px-3 py-2 text-xl rounded-lg hover:bg-blue-700 text-white font-normal ">Watchlist</button></a>
             </div>
-            <div class="chart-container">
-                <canvas id="trending-chart"></canvas>
-            </div>
-            <table id="stock-table">
-                <thead>
-                    <tr>
-                        <th data-sort="symbol">Symbol</th>
-                        <th>Price</th>
-                        <th data-sort="change">Change</th>
-                    </tr>
-                </thead>
-                <tbody id="stock-list">
-                </tbody>
-            </table>
-        </section>
-
-        <div id="homepage-stock-display"></div>
-
-
-        <section class="watchlist">
-            <h2>My Watchlist</h2>
-            <ul id="watchlist-items">
-                li>
-                <input type="checkbox" class="remove-checkbox">
-                <span class="watchlist-symbol">AAPL</span>
-                <button class="remove-from-watchlist">Remove</button>
-                <button id="add-to-watchlist">Add to Watchlist</button>
-                </li>
-            </ul>
-            <div class="watchlist-controls">
-                <button id="add-stock">
-                    <i class="fas fa-plus-circle"></i> Add Stock
-                </button>
-                <button class="remove-from-watchlist">Remove</button><button id="clear-watchlist">Clear
-                    Watchlist</button>
-
-            </div>
-        </section>
-        <section class="news-feed">
-            <h2>Stock Market News</h2>
-            <ul id="news-list">
-            </ul>
-        </section>
-        <section class="quick-links">
-            <h2>Quick Links</h2>
-            <ul>
-                <li><a href="#">Market Analysis</a></li>
-                <li><a href="#">Portfolio Management</a></li>
-                <li><a href="#">Educational Resources</a></li>
-            </ul>
-        </section>
-    </main>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // Include a charting library like Chart.js (already linked in HTML)
-        const ctx = document.getElementById("trending-chart").getContext('2d');
-
-        // Simulate getting trending stocks and news (replace with real API calls)
-        const trendingStocks = [
-            // ... (same as before)
-        ];
-
-        const news = [
-            { title: "Dow Jones Up 1.5% on Tech Stock Rally", source: "Reuters" },
-            { title: "Federal Reserve Expected to Raise Rates", source: "Bloomberg" },
-            // ... (more news)
-        ];
-
-        // Function to create a stock list item
-        function createStockListItem(stock) {
-            const listItem = document.createElement("li");
-            listItem.classList.add("stock-item");
-            listItem.innerHTML = `
-    <span class="symbol">${stock.symbol}</span>
-    <span class="name">${stock.name}</span>
-    <span class="price">$${stock.price.toFixed(2)}</span>
-    <span class="price-change">
-      <span class="change" style="color: ${stock.change > 0 ? 'green' : 'red'}">${stock.change > 0 ? '+' : ''}${stock.change.toFixed(2)}</span>
-      <span class="change-percent">(${((stock.change / stock.price) * 100).toFixed(2)}%)</span>
-    </span>
-  `;
-            return listItem;
-        }
-
-        // Populate the trending stocks list and chart (example using Chart.js)
-        const trendingStockList = document.querySelector(".trending-stocks .stock-list");
-        trendingStocks.forEach(stock => {
-            trendingStockList.appendChild(createStockListItem(stock));
-            // Add data for the chart (replace with actual data points)
-            // ...
-        });
-
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: trendingStocks.map(stock => stock.symbol),
-                datasets: [{
-                    label: 'Stock Price',
-                    data: trendingStocks.map(stock => stock.price),
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-
-        // Functionality for watchlist and news feed (to be implemented)
-        // Use localStorage or a database to store watchlist items
-        // Implement logic to fetch and display news articles
-
-        // Example event listener for searching stocks (incomplete)
-        document.getElementById("search-button").addEventListener("click", () => {
-            // Implement search functionality using a stock API
-        });
-
-        document.getElementById("search-button").addEventListener("click", () => {
-            const searchInput = document.getElementById("search-stock").value.toUpperCase(); // Get search term and convert to uppercase for case-insensitive search
-            searchStock(searchInput);
-        });
-
-        function searchStock(searchTerm) {
-            // Replace with your actual API call logic to fetch stock data based on searchTerm
-            // This is a placeholder for demonstration purposes
-            const searchedStock = {
-                symbol: searchTerm,
-                name: "Search Result: " + searchTerm,
-                price: 100.00,
-                change: 1.50,
-            };
-
-            // Check if a stock was found
-            if (searchedStock) {
-                // Update the dashboard with the searched stock data
-                updateDashboard(searchedStock);  // Call a function to update dashboard (explained later)
-            } else {
-                // Handle no results scenario (e.g., display an error message)
-                alert("Stock not found. Please try a different symbol.");
-            }
-        }
-
-        function updateDashboard(stockData) {
-            // 1. Clear existing data
-            const stockList = document.querySelector(".trending-stocks .stock-list");
-            stockList.innerHTML = ""; // Clear the existing stock list items
-
-            // 2. Update Chart (optional)
-            const chartCtx = document.getElementById("trending-chart").getContext('2d');
-            const existingChart = new Chart.constructor(chartCtx); // Get reference to existing chart
-
-            // Clear existing chart data
-            existingChart.data.labels = [];
-            existingChart.data.datasets[0].data = [];
-            existingChart.update();
-
-            // Update chart data with searched stock
-            existingChart.data.labels = [stockData.symbol];
-            existingChart.data.datasets[0].data = [stockData.price];
-            existingChart.update();
-
-            // 3. Scroll to Top (optional)
-            window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top smoothly
-
-            // Update Stock List
-            stockList.appendChild(createStockListItem(stockData)); // Add the searched stock
-        }
-
-        function getWatchlistItems() {
-            const storedItems = localStorage.getItem("watchlist");
-            return storedItems ? JSON.parse(storedItems) : []; // Parse stored JSON or return empty array
-        }
-
-        function addToWatchlist(stockData) {
-            const watchlistItems = getWatchlistItems();
-            watchlistItems.push(stockData); // Add stock to watchlist array
-            localStorage.setItem("watchlist", JSON.stringify(watchlistItems)); // Update localStorage
-            updateWatchlist(); // Call function to update watchlist display (explained later)
-        }
-
-        document.getElementById("add-stock").addEventListener("click", () => {
-            // Prompt user to enter a stock symbol or implement search functionality to add stocks
-            const stockSymbol = prompt("Enter a stock symbol to add to watchlist:");
-            if (stockSymbol) {
-                // Replace with your actual API call logic to fetch stock data based on symbol
-                const stockData = {
-                    // Placeholder stock data
-                    symbol: stockSymbol,
-                    name: "Example Stock",
-                    price: 123.45,
-                    change: 2.10,
-                };
-                addToWatchlist(stockData);
-            }
-        });
-
-        function fetchNewsArticles() {
-            const apiKey = "92c440c5e76a4245b0665f1ed46a81af"; // Replace with your actual API key
-            const url = `https://newsapi.org/v2/everything?q=financial+market&sortBy=publishedAt&apiKey=${apiKey}`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    const articles = data.articles;
-                    updateNewsFeed(articles); // Call function to update news feed (explained later)
-                })
-                .catch(error => console.error(error));
-        }
-
-        function updateNewsFeed(articles) {
-            const newsList = document.getElementById("news-list");
-            newsList.innerHTML = ""; // Clear existing list items
-
-            const maxNews = 5; // Adjust this value to limit the number of articles displayed
-            let displayedCount = 0;
-            articles.forEach(article => {
-                if (displayedCount < maxNews) {
-                    const listItem = document.createElement("li");
-                    listItem.classList.add("news-item");
-                    listItem.innerHTML = `
-        <a href="${article.url}" target="_blank">
-          ${article.title}
-        </a>
-        <span class="source">(${article.source.name})</span>
-      `;
-                    newsList.appendChild(listItem);
-                    displayedCount++;
-                }
-            });
-        }
-
-        window.onload = function () {
-            fetchNewsArticles();
-        };
-
-        function sortStockList(sortCriteria) {
-            // Get the stock list data (assuming it's in an array)
-            const stockData = getStockData(); // Replace with your logic to retrieve data
-
-            // Sort the data based on sortCriteria
-            stockData.sort((stockA, stockB) => {
-                if (sortCriteria === "symbol") {
-                    return stockA.symbol.localeCompare(stockB.symbol);
-                } else if (sortCriteria === "change") {
-                    return stockData.change - stockB.change; // Assuming change is a number
-                } else {
-                    // Handle other sorting criteria (e.g., price)
-                }
-            });
-
-            // Update the stock list with sorted data
-            updateStockList(stockData); // Replace with your logic to update list
-        }
-
-        const tableHeaders = document.querySelectorAll("#stock-table th");
-
-        tableHeaders.forEach(header => {
-            header.addEventListener("click", function () {
-                const sortCriteria = this.dataset.sort;
-                sortStockList(sortCriteria);
-            });
-        });
-
-        function updateStockList(sortedData) {
-            const stockList = document.getElementById("stock-list");
-            stockList.innerHTML = ""; // Clear existing list items
-
-            sortedData.forEach(stock => {
-                // Create and append list item elements 
-                // with appropriate content for each stock
-            });
-        }
-
-        const sampleStockData = [
-            { symbol: "AAPL", price: 150.23, change: 1.25 },
-            { symbol: "GOOG", price: 1250.78, change: -3.42 },
-            { symbol: "AMZN", price: 3200.50, change: 15.78 },
-            // ... add more stock data objects
-        ];
-        function getStockData() {
-            const watchlist = getWatchlistFromStorage();
-            const symbols = watchlist.join(","); // Join symbols into comma-separated string
-
-            const apiKey = "1M9XT2WX4RL4M28S"; // Replace with your actual key
-
-            const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbols=${symbols}&apikey=${apiKey}`;
-
-            // Use fetch API or a library like Axios to make the API call
-            return fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (!data || !data["Global Quote"]) {
-                        throw new Error("Invalid API response: missing data");
-                    }
-
-                    const stockData = [];
-                    for (const symbol in data["Global Quote"]) {
-                        if (data["Global Quote"].hasOwnProperty(symbol)) {
-                            const stockInfo = data["Global Quote"][symbol];
-                            stockData.push({
-                                symbol: stockInfo["symbol"],
-                                price: parseFloat(stockInfo["price"]), // Convert price to number
-                                change: parseFloat(stockInfo["change"]), // Convert change to number
-                            });
-                        }
-                    }
-                    return stockData;
-                })
-                .catch(error => {
-                    console.error("Error fetching stock data:", error);
-                    // Handle the error in the calling function (e.g., display an error message)
-                    throw error; // Re-throw the error for further handling
-                });
-        }
-
-
-
-        function updateStockList(sortedData) {
-            const stockList = document.getElementById("stock-list");
-            stockList.innerHTML = ""; // Clear existing list items
-
-            sortedData.forEach(stock => {
-                const listItem = document.createElement("li");
-                listItem.classList.add("stock-item");
-
-                // Create elements for symbol, price, and change
-                const symbolSpan = document.createElement("span");
-                symbolSpan.textContent = stock.symbol;
-
-                const priceSpan = document.createElement("span");
-                priceSpan.textContent = `$${stock.price.toFixed(2)}`; // Format price with 2 decimals
-
-                const changeSpan = document.createElement("span");
-                changeSpan.classList.add("price-change");
-
-                const changeValueSpan = document.createElement("span");
-                changeValueSpan.textContent = `$${stock.change.toFixed(2)}`; // Format change with 2 decimals
-
-                if (stock.change > 0) {
-                    changeValueSpan.classList.add("positive");
-                } else if (stock.change < 0) {
-                    changeValueSpan.classList.add("negative");
-                }
-
-                changeSpan.appendChild(changeValueSpan);
-                listItem.appendChild(symbolSpan);
-                listItem.appendChild(priceSpan);
-                listItem.appendChild(changeSpan);
-
-                stockList.appendChild(listItem);
-            });
-            // Update table header sorting arrows
-            const tableHeaders = document.querySelectorAll("#stock-table th");
-            tableHeaders.forEach(header => {
-                header.classList.remove("sorted-asc", "sorted-desc"); // Clear previous arrows
-                const sortCriteria = header.dataset.sort;
-                if (sortCriteria === currentSortCriteria) { // Check for currently sorted column
-                    header.classList.add(sortOrder === "asc" ? "sorted-asc" : "sorted-desc");
-                }
-            });
-        }
-
-        function sortStockList(sortCriteria, sortOrder = "asc") {
-            const stockData = getStockData();
-
-            if (!stockData || !sortCriteria) {
-                console.error("Invalid sorting criteria or data");
-                return; // Handle the error gracefully, e.g., display an error message
-            }
-
-            stockData.sort((stockA, stockB) => {
-                let comparison;
-                switch (sortCriteria) {
-                    case "symbol":
-                        comparison = stockA.symbol.localeCompare(stockB.symbol);
-                        break;
-                    case "change":
-                        comparison = stockData.change - stockB.change;
-                        break;
-                    case "price": // Add price sorting logic
-                        comparison = stockA.price - stockB.price;
-                        break;
-                    default:
-                        console.warn("Unknown sorting criteria:", sortCriteria);
-                        return 0; // Maintain original order for unknown criteria
-                }
-
-                return sortOrder === "asc" ? comparison : -comparison; // Reverse order for descending
-            });
-
-            updateStockList(stockData);
-        }
-
-        let currentSortCriteria = null; // Initialize current sort criteria
-
-        tableHeaders.forEach(header => {
-            header.addEventListener("click", function () {
-                const sortCriteria = this.dataset.sort;
-                let sortOrder = "asc"; // Default to ascending order
-
-                if (currentSortCriteria === sortCriteria) { // Toggle sort order if clicking same column
-                    sortOrder = sortOrder === "asc" ? "desc" : "asc";
-                }
-
-                currentSortCriteria = sortCriteria;
-                sortStockList(sortCriteria, sortOrder);
-            });
-        });
-
-        function addToWatchlist(symbol) {
-            const watchlist = getWatchlistFromStorage();
-            if (!watchlist.includes(symbol)) {
-                watchlist.push(symbol);
-                storeWatchlistInStorage(watchlist);
-                updateWatchlistUI();
-            } else {
-                console.warn("Symbol already exists in watchlist:", symbol);
-            }
-        }
-
-        function getWatchlistFromStorage() {
-            const watchlistJSON = localStorage.getItem("watchlist");
-            return watchlistJSON ? JSON.parse(watchlistJSON) : []; // Return empty array if no watchlist exists
-        }
-
-        function storeWatchlistInStorage(watchlist) {
-            localStorage.setItem("watchlist", JSON.stringify(watchlist));
-        }
-
-        function updateWatchlistUI() {
-            const watchlistItems = document.getElementById("watchlist-items");
-            watchlistItems.innerHTML = ""; // Clear existing list items
-
-            const watchlist = getWatchlistFromStorage();
-            watchlist.forEach(symbol => {
-                const listItem = document.createElement("li");
-                listItem.textContent = symbol;
-                watchlistItems.appendChild(listItem);
-            });
-        }
-
-        const addToWatchlistButton = document.getElementById("add-to-watchlist");
-
-        addToWatchlistButton.addEventListener("click", function () {
-            // Get the symbol to add (replace with logic to retrieve symbol)
-            const symbolToAdd = "AAPL"; // Placeholder symbol for demonstration
-
-            addToWatchlist(symbolToAdd);
-        });
-
-        window.onload = function () {
-            updateWatchlistUI();
-        };
-
-        function removeFromWatchlist(symbol) {
-            const watchlist = getWatchlistFromStorage();
-            const newList = watchlist.filter(item => item !== symbol); // Filter out the symbol to remove
-
-            if (watchlist.length !== newList.length) { // Check if symbol was removed
-                storeWatchlistInStorage(newList);
-                updateWatchlistUI();
-            } else {
-                console.warn("Symbol not found in watchlist:", symbol);
-            }
-        }
-
-        const watchlistItems = document.getElementById("watchlist-items");
-
-
-
-        function updateWatchlistUI(symbolToRemove) {
-            const watchlistItems = document.getElementById("watchlist-items");
-            watchlistItems.innerHTML = ""; // Clear existing list items
-
-            const watchlist = getWatchlistFromStorage();
-
-            if (symbolToRemove) { // Handle symbol removal if provided
-                const newList = watchlist.filter(item => item !== symbolToRemove);
-                storeWatchlistInStorage(newList);
-                watchlist = newList; // Update watchlist for rendering
-            }
-
-            watchlist.forEach(symbol => {
-                const listItem = document.createElement("li");
-                listItem.textContent = symbol;
-
-                // Optionally add a button/icon for removal within each list item
-                // ...
-
-                watchlistItems.appendChild(listItem);
-            });
-        }
-
-
-        watchlistItems.addEventListener("click", function (event) {
-            if (event.target.classList.contains("remove-from-watchlist")) {
-                const symbolToRemove = event.target.parentElement.querySelector(".watchlist-symbol").textContent;
-                removeFromWatchlist(symbolToRemove);
-            }
-        });
-
-        function clearWatchlist() {
-            localStorage.removeItem("watchlist");
-            updateWatchlistUI();
-        }
-
-        const clearWatchlistButton = document.getElementById("clear-watchlist");
-
-        clearWatchlistButton.addEventListener("click", clearWatchlist);
-
-        watchlistItems.addEventListener("click", function (event) {
-            if (event.target.classList.contains("remove-from-watchlist")) {
-                const symbolToRemove = event.target.parentElement.querySelector(".watchlist-symbol").textContent;
-                const confirmation = confirm(`Are you sure you want to remove ${symbolToRemove} from your watchlist?`);
-
-                if (confirmation) {
-                    removeFromWatchlist(symbolToRemove);
-                }
-            }
-        });
-
-        function updateWatchlistUI() {
-            const watchlistItems = document.getElementById("watchlist-items");
-            watchlistItems.innerHTML = ""; // Clear existing list items
-
-            const stockData = getStockData(); // Call the updated getStockData
-
-            stockData.forEach(stock => {
-                const listItem = document.createElement("li");
-                listItem.textContent = `${stock.symbol} (${stock.price.toFixed(2)})`; // Display symbol and price
-
-                // Optionally add change information, styling, etc. based on your design
-
-                watchlistItems.appendChild(listItem);
-            });
-        }
-
-        // Call this function on page load or after watchlist updates
-        function updateHomepageStockDisplay() {
-            const watchlist = getWatchlistFromStorage();
-            const symbols = watchlist.join(",");
-
-            const apiKey = "1M9XT2WX4RL4M28S";
-            const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbols=${symbols}&apikey=${apiKey}`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    const homepageStockDisplay = document.getElementById("homepage-stock-display");
-                    homepageStockDisplay.innerHTML = ""; // Clear existing content
-
-                    const stockData = [];
-                    for (const symbol in data) {
-                        if (data.hasOwnProperty(symbol)) {
-                            const stockInfo = data[symbol]["Global Quote"];
-                            stockData.push({
-                                symbol: stockInfo["symbol"],
-                                price: parseFloat(stockInfo["price"]),
-                            });
-                        }
-                    }
-
-                    // Generate HTML content for the homepage stock display based on stockData
-                    let displayContent = "";
-                    stockData.forEach(stock => {
-                        displayContent += `<p>${stock.symbol}: $${stock.price.toFixed(2)}</p>`;
-                    });
-                    homepageStockDisplay.innerHTML = displayContent;
-                })
-                .catch(error => {
-                    console.error("Error fetching stock data:", error);
-                    // Handle API errors gracefully (e.g., display an error message)
-                });
-        }
-
-        // Call the function to update the homepage display
-        updateHomepageStockDisplay();
-
-        function fetchDataAndDisplay(symbols) {
-            const apiKey = "1M9XT2WX4RL4M28S";
-
-            const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbols=${symbols.join(",")}&apikey=${apiKey}`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    const homepageStockDisplay = document.getElementById("homepage-stock-display");
-                    homepageStockDisplay.innerHTML = "";
-
-                    let displayContent = "";
-
-                    // Separate logic for watchlist and trending stocks (optional for styling differentiation)
-                    const watchlistData = {};
-                    const trendingData = {};
-                    for (const symbol in data) {
-                        if (data.hasOwnProperty(symbol)) {
-                            const stockInfo = data[symbol]["Global Quote"];
-                            if (watchlist.includes(symbol)) {
-                                watchlistData[symbol] = {
-                                    symbol: stockInfo["symbol"],
-                                    price: parseFloat(stockInfo["price"]),
-                                    change: parseFloat(stockInfo["change"]),
-                                };
-                            } else {
-                                trendingData[symbol] = {
-                                    symbol: stockInfo["symbol"],
-                                    price: parseFloat(stockInfo["price"]),
-                                    change: parseFloat(stockInfo["change"]),
-                                };
-                            }
-                        }
-                    }
-
-                    // Generate HTML content (consider separate sections for watchlist and trending)
-                    displayContent += "<h2>Watchlist</h2>";
-                    displayContent += generateStockListContent(watchlistData);
-                    displayContent += "<h2>Trending Stocks</h2>";
-                    displayContent += generateStockListContent(trendingData);
-
-                    homepageStockDisplay.innerHTML = displayContent;
-                })
-                .catch(error => {
-                    console.error("Error fetching stock data:", error);
-                    // Handle errors gracefully (e.g., display an error message)
-                });
-        }
-
-
-        function generateStockListContent(stockData, itemClass) {
-            // Logic to generate HTML content for each stock item based on stockData structure
-            let content = "";
-            for (const symbol in stockData) {
-                const stock = stockData[symbol];
-                const changeClass = stock.change > 0 ? "positive" : stock.change < 0 ? "negative" : "";
-                content += `
-        <div class="stock-item ${itemClass}">
-          <span class="stock-symbol">${stock.symbol}</span>
-          <span class="stock-price">$${stock.price.toFixed(2)}</span>
-          <span class="stock-change ${changeClass}">(${stock.change.toFixed(2)})</span>
         </div>
-      `;
-            }
-            return content;
-        }
-
-    </script>
+        <div>
+            <img src="img/two_bulls_stonkspng.png" alt="photo" class="img-fluid mx-auto d-block"
+                style="height: auto; width: 500px; margin:50px">
+        </div>
+        <footer><%- include('partials/footer.ejs') %></footer>
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+    var api = "RLS7V1SO4N3CM4LQ";
+    // var api = "1M9XT2WX4RL4M28S";
+    var dps = [];
+    var company = null;
+    var symbol = null;
+    var chart = null;
+    var columns = ["Date", "Open", "High", "Low", "Close", "Adjusted Close", "Volume"];
+    var data1 = []
+    const YOUR_TRENDING_SYMBOLS = "QQQ,AAPL,MSFT,GOOG,AMZN,TSLA,NVDA,META,CRM,ADBE" // Technology sector symbols (replace "..." with more symbols)
+
+
+    function download() {
+        window.location = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + symbol + "&apikey=" + api + "&datatype=csv";
+    }
+
+    function getting_data() {
+        if (company !== null) {
+            $.getJSON("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + symbol + "&outputsize=full&apikey=" + api)
+                .done(function (data) {
+                    console.log(data);
+                    console.log("getting data");
+                    var date = data["Time Series (Daily)"]
+                    console.log(date);
+                    let a = 20;
+                    let b = 7;
+                    for (var d in date) {
+                        var r = d.split("-");
+                        if (a-- > 0) {
+                            console.log(data1);
+                            var value = date[d];
+                            dps.unshift({ x: new Date(parseInt(r[0]), parseInt(r[1]) - 1, parseInt(r[2])), y: parseFloat(value["1. open"]) });
+                            if (b-- > 0) {
+                                let c = [d, value["1. open"], value["2. high"], value["3. low"], value["4. close"], value["5. adjusted close"], value["6. volume"]];
+                                data1.push(c);
+                                console.log(data1);
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+                    graph();
+                    drawTable();
+                    document.getElementById("loading_container").style.display = "none";
+                    document.getElementById("download_data").style.display = "block";
+                    document.getElementById("companies").disabled = false;
+                    document.getElementById("get_data").disabled = false;
+                    document.getElementById("chartContainer").disabled = false;
+                })
+                .fail(function (textStatus, error) {
+                    alert(textStatus + " " + error + "\nReload the page");
+                })
+        }
+    }
+
+    function graph() {
+        chart = new CanvasJS.Chart("chartContainer", {
+            title: {
+                text: company
+            },
+            animationEnabled: true,
+            theme: "light2",
+            axisY: {
+                title: "Open Prices",
+                includeZero: false
+            },
+            axisX: {
+                title: "Date",
+                valueFormatString: "DD-MMM"
+            },
+            data: [{
+                type: "line",
+                indexLabelFontSize: 16,
+                dataPoints: dps
+            }]
+        });
+        chart.options.data[0].dataPoints = dps;
+        chart.render();
+    }
+
+    function getData() {
+        if (chart !== null) {
+            chart.destroy();
+        }
+        data1 = [];
+        dps = [];
+        document.getElementById("table_container").innerHTML = "";
+        company = document.getElementById("companies").value;
+        let r = company.split("(");
+        symbol = r[1].substring(0, r[1].length - 1);
+        document.getElementById("loading_container").style.display = "block";
+        document.getElementById("download_data").style.display = "none";
+        document.getElementById("companies").disabled = true;
+        document.getElementById("get_data").disabled = true;
+        document.getElementById("chartContainer").disabled = true;
+        getting_data();
+        // $.getJSON("https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbols=YOUR_TRENDING_SYMBOLS&apikey=" + api)
+        //     .done(function (trendingData) {
+        //         const trendingCompanies = getTrendingCompanies(trendingData);
+        //         const top3Companies = trendingCompanies.slice(0, 3);
+        //         const remainingCompanies = trendingCompanies.slice(3);
+
+        //         showTop3Companies(top3Companies);
+        //         populateCompanyDropdown(remainingCompanies);
+        //     })
+        //     .fail(function (textStatus, error) {
+        //         alert(textStatus + " " + error + "\nReload the page");
+        //     });
+    }
+
+    function showTop3Companies(companies) {
+        const companyContainer = document.getElementById("company_container");
+
+        companies.forEach(company => {
+            const option = document.createElement("option");
+            option.value = company;
+            option.text = company;
+
+            // Create a new element for each top company (e.g., a button)
+            const companyElement = document.createElement("button");
+            companyElement.className = "btn btn-light"; // Style the button
+            companyElement.textContent = company;
+            companyElement.addEventListener("click", function () {
+                // Simulate click on the corresponding dropdown option
+                document.getElementById("companies").value = company;
+                getData(); // Trigger data retrieval for the selected company
+            });
+
+            companyContainer.appendChild(companyElement);
+        });
+    }
+
+
+    function getTrendingCompanies(trendingData) {
+        const companies = [];
+        const symbols = Object.keys(trendingData["Global Quote"]); // Extract symbols
+
+        // Iterate through symbols and calculate percentage change
+        symbols.forEach(symbol => {
+            const currentPrice = parseFloat(trendingData["Global Quote"][symbol]["05. price"]);
+            const previousClose = parseFloat(trendingData["Global Quote"][symbol]["08. previousClose"]);
+            const changePercent = ((currentPrice - previousClose) / previousClose) * 100;
+
+            companies.push({ symbol, changePercent });
+        });
+
+        // Sort companies by percentage change (descending order)
+        companies.sort((a, b) => b.changePercent - a.changePercent);
+
+        // Extract top companies (replace 10 with desired number)
+        return companies.slice(0, 10).map(company => company.symbol);
+    }
+
+
+    function populateCompanyDropdown(companies) {
+        const dropdown = document.getElementById("companies");
+        dropdown.innerHTML = ""; // Clear existing options
+
+        companies.forEach(company => {
+            const option = document.createElement("option");
+            option.value = company;
+            option.text = company;
+            dropdown.appendChild(option);
+        });
+    }
+
+
+    function drawTable() {
+        var table_container = document.getElementById("table_container");
+        var para = document.createElement("p");
+        para.id = "para";
+        var cell = document.createTextNode("RECENT END OF DAY PRICES");
+        para.appendChild(cell);
+        table_container.appendChild(para);
+        var table = document.createElement("table");
+        table.className = "table";
+        var row = document.createElement("tr");
+        for (let i = 0; i < columns.length; i++) {
+            var col = document.createElement("th");
+            col.scope = "col";
+            cell = document.createTextNode(columns[i]);
+            col.appendChild(cell);
+            row.appendChild(col);
+        }
+        table.appendChild(row);
+        for (let i = 0; i < 7; i++) {
+            row = document.createElement("tr");
+            for (let j = 0; j < 7; j++) {
+                col = document.createElement("td");
+                cell = document.createTextNode(data1[i][j]);
+                col.appendChild(cell);
+                row.appendChild(col);
+            }
+            table.appendChild(row);
+        }
+        table_container.appendChild(table);
+    }
+</script>
 
 </html>

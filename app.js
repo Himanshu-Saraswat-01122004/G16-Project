@@ -3,6 +3,7 @@ const ejs = require('ejs');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
+const html = require('html');
 
 const app = express();
 app.set('views', __dirname + '/views');
@@ -30,11 +31,17 @@ const User = mongoose.model('User', newuser);
 app.get('/', (req, res) => {
     res.render('Home.ejs');
 });
+app.get('/home', (req, res) => {
+    res.render('Home.ejs');
+});
 app.get('/login', (req, res) => {
     res.render('login.ejs');
 });
 app.get('/dashboard', (req, res) => {
     res.render('dashboard.ejs');
+});
+app.get('/forex', (req, res) => {
+    res.render('forex.ejs');
 });
 app.post('/logo', (req, res) => {
     res.redirect('/');
@@ -65,8 +72,7 @@ app.post('/signin', async (req, res) => {
     if (user) {
         res.redirect('/');
     } else {
-        // give alert on login page
-        // alert('Invalid username or password');
+        alert('Invalid username or password');
         res.redirect('/login');
     }
 });
