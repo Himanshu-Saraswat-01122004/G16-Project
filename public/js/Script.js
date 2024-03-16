@@ -26,25 +26,25 @@ searchBox.addEventListener("click", () => {
 let navLinks = document.querySelector(".nav-links");
 let menuOpenBtn = document.querySelector(".navbar .bx-menu");
 let menuCloseBtn = document.querySelector(".nav-links .bx-x");
-menuOpenBtn.onclick = function () {
+menuOpenBtn.onclick = function() {
     navLinks.style.left = "0";
 }
-menuCloseBtn.onclick = function () {
+menuCloseBtn.onclick = function() {
     navLinks.style.left = "-100%";
 }
 
 
 // sidebar submenu open close js code
 let htmlcssArrow = document.querySelector(".htmlcss-arrow");
-htmlcssArrow.onclick = function () {
+htmlcssArrow.onclick = function() {
     navLinks.classList.toggle("show1");
 }
 let moreArrow = document.querySelector(".more-arrow");
-moreArrow.onclick = function () {
+moreArrow.onclick = function() {
     navLinks.classList.toggle("show2");
 }
 let jsArrow = document.querySelector(".js-arrow");
-jsArrow.onclick = function () {
+jsArrow.onclick = function() {
     navLinks.classList.toggle("show3");
 }
 
@@ -64,7 +64,7 @@ function getting_data() {
     if (company !== null) {
         console.log("inside company");
         $.getJSON("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + symbol + "&outputsize=full&apikey=" + api)
-            .done(function (data) {
+            .done(function(data) {
                 console.log("inside api");
                 var date = data["Time Series (Daily)"]
                 console.log(date);
@@ -94,7 +94,7 @@ function getting_data() {
                 document.getElementById("get_data").disabled = false;
                 document.getElementById("chartContainer").disabled = false;
             })
-            .fail(function (textStatus, error) {
+            .fail(function(textStatus, error) {
                 alert(textStatus + " " + error + "\nReload the page");
             })
     }
@@ -166,7 +166,7 @@ function drawTable() {
         row = document.createElement("tr");
         for (let j = 0; j < 7; j++) {
             col = document.createElement("td");
-            console.log(typeof (data1[i][j]));
+            console.log(typeof(data1[i][j]));
             console.log(data1[i][j]);
             cell = document.createTextNode(data1[i][j]);
             col.appendChild(cell);

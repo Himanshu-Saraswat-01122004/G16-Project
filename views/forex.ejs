@@ -2,14 +2,15 @@
 <html>
 
 <head>
-    <title>Data/Forex</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Foreign Exchange</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/forex.css">
 </head>
 
 <body>
-    <nav><%- include('partials/navbar.ejs') %></nav>
+    <nav>
+        <%- include('partials/navbar.ejs') %>
+    </nav>
     <div id="loading_container">
         <h6 style="margin-left: 11%;">Loading data.....</h6>
         <progress></progress>
@@ -35,7 +36,9 @@
         <div id="chartContainer"></div>
     </div>
     <div id="table_container"></div>
-    <footer><%- include('partials/footer.ejs') %></footer>
+    <footer>
+        <%- include('partials/footer.ejs') %>
+    </footer>
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

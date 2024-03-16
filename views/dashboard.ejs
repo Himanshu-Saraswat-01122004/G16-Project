@@ -5,57 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" src="/css/style.css">
-    <style>
-        #loading_container {
-            display: none;
-            width: 200px;
-            margin-top: 1%;
-            margin-left: 45%;
-            margin-right: auto;
-        }
-
-        #company_container {
-            margin-top: 5%;
-            margin-left: 32%;
-            margin-right: auto;
-        }
-
-        #chartContainer {
-            height: 300px;
-            width: 70%;
-            margin-top: 5%;
-            margin-left: 13%;
-            margin-right: auto;
-        }
-
-        #table_container {
-            margin-left: 30px;
-            margin-top: 5%;
-            width: 100%;
-            margin-right: 20px;
-        }
-
-        #para {
-            font-weight: bold;
-            font-size: large;
-            text-align: center;
-            margin-bottom: 1%;
-        }
-
-        #download_data {
-            display: none;
-            margin-top: 20px;
-            margin-left: 42%;
-            margin-right: auto;
-        }
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" src="css/style.css">
 </head>
 
 <body>
-    <nav><%- include('partials/navbar.ejs') %></nav>
+    <nav>
+        <%- include('partials/navbar.ejs') %>
+    </nav>
 
     <div id="company_container" style="margin-top: 100px;">
         <select id="companies" class="btn btn-light" name="companies">
@@ -63,9 +20,7 @@
             <option value="Microsoft Corp(MSFT)">Microsoft Corp(MSFT)</option>
             <option value="International Business Machine(IBM)">International Business Machine(IBM)</option>
         </select>
-        <button id="get_data" onclick="getData()"
-            class="bg-blue-600 px-3 py-2 text-l rounded-lg hover:bg-blue-700 text-white font-normal"
-            style="margin-left: 5%;">Get Data</button>
+        <button id="get_data" onclick="getData()" class="bg-blue-600 px-3 py-2 text-l rounded-lg hover:bg-blue-700 text-white font-normal" style="margin-left: 5%;">Get Data</button>
     </div>
     <div id="loading_container" style="margin-bottom: 100px;">
         <h6 style="margin-left: 11%;">Loading data.....</h6>
@@ -89,10 +44,11 @@
             </div>
         </div>
         <div>
-            <img src="img/two_bulls_stonkspng.png" alt="photo" class="img-fluid mx-auto d-block"
-                style="height: auto; width: 500px; margin:50px">
+            <img src="img/two_bulls_stonkspng.png" alt="photo" class="img-fluid mx-auto d-block" style="height: auto; width: 500px; margin:50px">
         </div>
-        <footer><%- include('partials/footer.ejs') %></footer>
+        <footer>
+            <%- include('partials/footer.ejs') %>
+        </footer>
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -116,7 +72,7 @@
     function getting_data() {
         if (company !== null) {
             $.getJSON("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + symbol + "&outputsize=full&apikey=" + api)
-                .done(function (data) {
+                .done(function(data) {
                     console.log(data);
                     console.log("getting data");
                     var date = data["Time Series (Daily)"]
@@ -128,7 +84,10 @@
                         if (a-- > 0) {
                             console.log(data1);
                             var value = date[d];
-                            dps.unshift({ x: new Date(parseInt(r[0]), parseInt(r[1]) - 1, parseInt(r[2])), y: parseFloat(value["1. open"]) });
+                            dps.unshift({
+                                x: new Date(parseInt(r[0]), parseInt(r[1]) - 1, parseInt(r[2])),
+                                y: parseFloat(value["1. open"])
+                            });
                             if (b-- > 0) {
                                 let c = [d, value["1. open"], value["2. high"], value["3. low"], value["4. close"], value["5. adjusted close"], value["6. volume"]];
                                 data1.push(c);
@@ -146,7 +105,7 @@
                     document.getElementById("get_data").disabled = false;
                     document.getElementById("chartContainer").disabled = false;
                 })
-                .fail(function (textStatus, error) {
+                .fail(function(textStatus, error) {
                     alert(textStatus + " " + error + "\nReload the page");
                 })
         }
@@ -219,7 +178,7 @@
             const companyElement = document.createElement("button");
             companyElement.className = "btn btn-light"; // Style the button
             companyElement.textContent = company;
-            companyElement.addEventListener("click", function () {
+            companyElement.addEventListener("click", function() {
                 // Simulate click on the corresponding dropdown option
                 document.getElementById("companies").value = company;
                 getData(); // Trigger data retrieval for the selected company
@@ -240,7 +199,10 @@
             const previousClose = parseFloat(trendingData["Global Quote"][symbol]["08. previousClose"]);
             const changePercent = ((currentPrice - previousClose) / previousClose) * 100;
 
-            companies.push({ symbol, changePercent });
+            companies.push({
+                symbol,
+                changePercent
+            });
         });
 
         // Sort companies by percentage change (descending order)

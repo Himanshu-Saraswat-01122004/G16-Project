@@ -7,8 +7,7 @@
     <div class="navbar">
         <i class='bx bx-menu'></i>
         <a class="navbar-brand logo" action="/logo" method="POST" href="">
-            <img src="https://static.vecteezy.com/system/resources/previews/017/785/212/non_2x/money-icon-on-transparent-background-free-png.png"
-                class="h-12" alt="" srcset="" alt="XChange">
+            <img src="https://static.vecteezy.com/system/resources/previews/017/785/212/non_2x/money-icon-on-transparent-background-free-png.png" class="h-12" alt="" srcset="" alt="XChange">
             <p class="ml-16 -mt-10 font-medium text-2xl flex cursor-pointer">XChange</p>
         </a>
         <div class="nav-links">
@@ -21,7 +20,7 @@
             <ul class="links">
                 <li><a href="/home">HOME</a></li>
                 <li>
-                    <a>FEATURES</a>
+                    <a style="cursor: pointer;">FEATURES</a>
                     <i class='bx bxs-chevron-down htmlcss-arrow arrow'></i>
                     <ul class="htmlCss-sub-menu sub-menu">
                         <li><a href="/dashboard">Dashboard</a></li>
@@ -57,44 +56,4 @@
         </div>
     </div>
 </nav>
-<script>
-    // search-box open close js code
-    let navbar = document.querySelector(".navbar");
-    let searchBox = document.querySelector(".search-box .bx-search");
-    // let searchBoxCancel = document.querySelector(".search-box .bx-x");
-
-    searchBox.addEventListener("click", () => {
-        navbar.classList.toggle("showInput");
-        if (navbar.classList.contains("showInput")) {
-            searchBox.classList.replace("bx-search", "bx-x");
-        } else {
-            searchBox.classList.replace("bx-x", "bx-search");
-        }
-    });
-
-    // sidebar open close js code
-    let navLinks = document.querySelector(".nav-links");
-    let menuOpenBtn = document.querySelector(".navbar .bx-menu");
-    let menuCloseBtn = document.querySelector(".nav-links .bx-x");
-    menuOpenBtn.onclick = function () {
-        navLinks.style.left = "0";
-    }
-    menuCloseBtn.onclick = function () {
-        navLinks.style.left = "-100%";
-    }
-
-
-    // sidebar submenu open close js code
-    let htmlcssArrow = document.querySelector(".htmlcss-arrow");
-    htmlcssArrow.onclick = function () {
-        navLinks.classList.toggle("show1");
-    }
-    let moreArrow = document.querySelector(".more-arrow");
-    moreArrow.onclick = function () {
-        navLinks.classList.toggle("show2");
-    }
-    let jsArrow = document.querySelector(".js-arrow");
-    jsArrow.onclick = function () {
-        navLinks.classList.toggle("show3");
-    }
-</script>
+<script src="js/navbar.js"></script>
