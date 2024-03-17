@@ -3,6 +3,7 @@ const ejs = require('ejs');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
+const html = require('html');
 
 const app = express();
 app.set('views', __dirname + '/views');
@@ -11,9 +12,9 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 mongoose.connect('mongodb://localhost:27017/G-16', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
     .then(() => {
         console.log('Connected to DB');
     })
@@ -27,43 +28,51 @@ const newuser = new mongoose.Schema({
     password: String
 });
 const User = mongoose.model('User', newuser);
-app.get('/',(req,res)=>{
+app.get('/', (req, res) => {
     res.render('Home.ejs');
 });
-app.get('/login', (req, res)=>{
+app.get('/home', (req, res) => {
+    res.render('Home.ejs');
+});
+app.get('/login', (req, res) => {
     res.render('login.ejs');
 });
-app.post('/logo', (req, res) => {
-    res.redirect('/');
+app.get('/dashboard', (req, res) => {
+    res.render('dashboard.ejs');
+});
+app.get('/forex', (req, res) => {
+    res.render('forex.ejs');
 });
 app.post('/logo', (req, res) => {
     res.redirect('/');
 });
-app.post('/signup', async (req, res) => {
+app.post('/logo', (req, res) => {
+    res.redirect('/');
+});
+app.post('/signup', async(req, res) => {
     const user = new User({
         name: req.body.name,
         username: req.body.username,
         password: req.body.password
     });
     await user.save()
-    .then(()=>{
-        res.status(200);
-    })
-    .catch(err => {
-        console.log(`err: ${err}`);
-    });
+        .then(() => {
+            res.status(200);
+        })
+        .catch(err => {
+            console.log(`err: ${err}`);
+        });
     res.redirect('/');
 });
 
-app.post('/signin', async (req, res) => {
+app.post('/signin', async(req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    const user = await User .findOne({ username: username, password: password });
+    const user = await User.findOne({ username: username, password: password });
     if (user) {
         res.redirect('/');
     } else {
-        // give alert on login page
-        // alert('Invalid username or password');
+        alert('Invalid username or password');
         res.redirect('/login');
     }
 });

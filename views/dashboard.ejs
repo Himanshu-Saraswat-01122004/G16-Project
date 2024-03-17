@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" src="css/style.css">
+    <style>
+        .container {
+            max-width: inherit;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 10px;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <%- include('partials/navbar.ejs') %>
+    </nav>
+
+    <div id="company_container" style="margin-top: 100px;">
+        <select id="companies" class="btn btn-light" name="companies">
+            <option value="Apple Inc(AAPL)">Apple Inc(AAPL)</option>
+            <option value="Microsoft Corp(MSFT)">Microsoft Corp(MSFT)</option>
+            <option value="International Business Machine(IBM)">International Business Machine(IBM)</option>
+        </select>
+        <button id="get_data" onclick="getData()" class="bg-blue-600 px-3 py-2 text-l rounded-lg hover:bg-blue-700 text-white font-normal" style="margin-left: 5%;">Get Data</button>
+    </div>
+    <div id="loading_container" style="margin-bottom: 100px;">
+        <h6 style="margin-left: 11%;">Loading data.....</h6>
+        <progress></progress>
+    </div>
+
+    <div style="background-color: aliceblue; padding-top: 10px; padding-bottom: 50px;">
+        <div class="container">
+            <button id="download_data" onclick="download()" class="btn btn-success">Download Data(CSV)</button>
+            <div id="chartContainer"></div>
+            <div id="table_container"></div>
+        </div>
+    </div>
+    <div style="padding-top: 50px;">
+        <div class="text-center">
+            <div class="fs-2 fw-semibold">Personalize your watchlist</div>
+            <div class="fs-4" style="margin-bottom: 10px;">Track your favorite stocks.</div>
+            <!-- <div><a href="/watchlist"><button type="button" -->
+            <div><a href="#"><button type="button"
+                        class="bg-blue-600 px-3 py-2 text-xl rounded-lg hover:bg-blue-700 text-white font-normal ">Watchlist</button></a>
+            </div>
+        </div>
+        <div>
+            <img src="img/two_bulls_stonkspng.png" alt="photo" class="img-fluid mx-auto d-block" style="height: auto; width: 500px; margin:50px">
+        </div>
+        <footer>
+            <%- include('partials/footer.ejs') %>
+        </footer>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+    var api = "RLS7V1SO4N3CM4LQ";
+    // var api = "1M9XT2WX4RL4M28S";
+    var dps = [];
+    var company = null;
+    var symbol = null;
+    var chart = null;
+    var columns = ["Date", "Open", "High", "Low", "Close", "Adjusted Close", "Volume"];
+    var data1 = []
+    const YOUR_TRENDING_SYMBOLS = "QQQ,AAPL,MSFT,GOOG,AMZN,TSLA,NVDA,META,CRM,ADBE" // Technology sector symbols (replace "..." with more symbols)
+
+
+    function download() {
+        window.location = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + symbol + "&apikey=" + api + "&datatype=csv";
+    }
+
+    function getting_data() {
+        if (company !== null) {
+            $.getJSON("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + symbol + "&outputsize=full&apikey=" + api)
+                .done(function(data) {
+                    console.log(data);
+                    console.log("getting data");
+                    var date = data["Time Series (Daily)"]
+                    console.log(date);
+                    let a = 20;
+                    let b = 7;
+                    for (var d in date) {
+                        var r = d.split("-");
+                        if (a-- > 0) {
+                            console.log(data1);
+                            var value = date[d];
+                            dps.unshift({
+                                x: new Date(parseInt(r[0]), parseInt(r[1]) - 1, parseInt(r[2])),
+                                y: parseFloat(value["1. open"])
+                            });
+                            if (b-- > 0) {
+                                let c = [d, value["1. open"], value["2. high"], value["3. low"], value["4. close"], value["5. adjusted close"], value["6. volume"]];
+                                data1.push(c);
+                                console.log(data1);
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+                    graph();
+                    drawTable();
+                    document.getElementById("loading_container").style.display = "none";
+                    document.getElementById("download_data").style.display = "block";
+                    document.getElementById("companies").disabled = false;
+                    document.getElementById("get_data").disabled = false;
+                    document.getElementById("chartContainer").disabled = false;
+                })
+                .fail(function(textStatus, error) {
+                    alert(textStatus + " " + error + "\nReload the page");
+                })
+        }
+    }
+
+    function graph() {
+        chart = new CanvasJS.Chart("chartContainer", {
+            title: {
+                text: company
+            },
+            animationEnabled: true,
+            theme: "light2",
+            axisY: {
+                title: "Open Prices",
+                includeZero: false
+            },
+            axisX: {
+                title: "Date",
+                valueFormatString: "DD-MMM"
+            },
+            data: [{
+                type: "line",
+                indexLabelFontSize: 16,
+                dataPoints: dps
+            }]
+        });
+        chart.options.data[0].dataPoints = dps;
+        chart.render();
+    }
+
+    function getData() {
+        if (chart !== null) {
+            chart.destroy();
+        }
+        data1 = [];
+        dps = [];
+        document.getElementById("table_container").innerHTML = "";
+        company = document.getElementById("companies").value;
+        let r = company.split("(");
+        symbol = r[1].substring(0, r[1].length - 1);
+        document.getElementById("loading_container").style.display = "block";
+        document.getElementById("download_data").style.display = "none";
+        document.getElementById("companies").disabled = true;
+        document.getElementById("get_data").disabled = true;
+        document.getElementById("chartContainer").disabled = true;
+        getting_data();
+        // $.getJSON("https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbols=YOUR_TRENDING_SYMBOLS&apikey=" + api)
+        //     .done(function (trendingData) {
+        //         const trendingCompanies = getTrendingCompanies(trendingData);
+        //         const top3Companies = trendingCompanies.slice(0, 3);
+        //         const remainingCompanies = trendingCompanies.slice(3);
+
+        //         showTop3Companies(top3Companies);
+        //         populateCompanyDropdown(remainingCompanies);
+        //     })
+        //     .fail(function (textStatus, error) {
+        //         alert(textStatus + " " + error + "\nReload the page");
+        //     });
+    }
+
+    function showTop3Companies(companies) {
+        const companyContainer = document.getElementById("company_container");
+
+        companies.forEach(company => {
+            const option = document.createElement("option");
+            option.value = company;
+            option.text = company;
+
+            // Create a new element for each top company (e.g., a button)
+            const companyElement = document.createElement("button");
+            companyElement.className = "btn btn-light"; // Style the button
+            companyElement.textContent = company;
+            companyElement.addEventListener("click", function() {
+                // Simulate click on the corresponding dropdown option
+                document.getElementById("companies").value = company;
+                getData(); // Trigger data retrieval for the selected company
+            });
+
+            companyContainer.appendChild(companyElement);
+        });
+    }
+
+
+    function getTrendingCompanies(trendingData) {
+        const companies = [];
+        const symbols = Object.keys(trendingData["Global Quote"]); // Extract symbols
+
+        // Iterate through symbols and calculate percentage change
+        symbols.forEach(symbol => {
+            const currentPrice = parseFloat(trendingData["Global Quote"][symbol]["05. price"]);
+            const previousClose = parseFloat(trendingData["Global Quote"][symbol]["08. previousClose"]);
+            const changePercent = ((currentPrice - previousClose) / previousClose) * 100;
+
+            companies.push({
+                symbol,
+                changePercent
+            });
+        });
+
+        // Sort companies by percentage change (descending order)
+        companies.sort((a, b) => b.changePercent - a.changePercent);
+
+        // Extract top companies (replace 10 with desired number)
+        return companies.slice(0, 10).map(company => company.symbol);
+    }
+
+
+    function populateCompanyDropdown(companies) {
+        const dropdown = document.getElementById("companies");
+        dropdown.innerHTML = ""; // Clear existing options
+
+        companies.forEach(company => {
+            const option = document.createElement("option");
+            option.value = company;
+            option.text = company;
+            dropdown.appendChild(option);
+        });
+    }
+
+
+    function drawTable() {
+        var table_container = document.getElementById("table_container");
+        var para = document.createElement("p");
+        para.id = "para";
+        var cell = document.createTextNode("RECENT END OF DAY PRICES");
+        para.appendChild(cell);
+        table_container.appendChild(para);
+        var table = document.createElement("table");
+        table.className = "table";
+        var row = document.createElement("tr");
+        for (let i = 0; i < columns.length; i++) {
+            var col = document.createElement("th");
+            col.scope = "col";
+            cell = document.createTextNode(columns[i]);
+            col.appendChild(cell);
+            row.appendChild(col);
+        }
+        table.appendChild(row);
+        for (let i = 0; i < 7; i++) {
+            row = document.createElement("tr");
+            for (let j = 0; j < 7; j++) {
+                col = document.createElement("td");
+                cell = document.createTextNode(data1[i][j]);
+                col.appendChild(cell);
+                row.appendChild(col);
+            }
+            table.appendChild(row);
+        }
+        table_container.appendChild(table);
+    }
+</script>
+
+</html>
