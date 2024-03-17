@@ -1,4 +1,4 @@
-var api = "demo"; // get your own api (https://www.alphavantage.co/support/#api-key)
+var api = "QH43QW1MNDF4J28A";
 var from_currency = null;
 var to_currency = null;
 var forex_dps = [];
@@ -15,8 +15,6 @@ function getForexTable() {
     var table_container = document.getElementById("table_container");
     var para = document.createElement("p");
     para.id = "para";
-    var cell = document.createTextNode("RECENT DATA");
-    para.appendChild(cell);
     table_container.appendChild(para);
     var table = document.createElement("table");
     table.className = "table";
@@ -69,7 +67,7 @@ function getGraph() {
 
 function getGraphData() {
     $.getJSON("https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=" + from_currency + "&to_symbol=" + to_currency + "&outputsize=full&apikey=" + api)
-        .done(function (data) {
+        .done(function(data) {
             var date = data["Time Series FX (Daily)"]
             let a = 20;
             let b = 7;
@@ -94,14 +92,14 @@ function getGraphData() {
             document.getElementById("to_currency").disabled = false;
             document.getElementById("get_data").disabled = false;
         })
-        .fail(function (textStatus, error) {
+        .fail(function(textStatus, error) {
             alert(textStatus + " " + error + "\nReload the page");
         })
 }
 
 function getForexExchangeData() {
     $.getJSON("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=" + from_currency + "&to_currency=" + to_currency + "&apikey=" + api)
-        .done(function (data) {
+        .done(function(data) {
             var ex = data["Realtime Currency Exchange Rate"];
             var div = document.getElementById("exchange");
             for (var d in ex) {
@@ -112,7 +110,7 @@ function getForexExchangeData() {
             }
             getGraphData();
         })
-        .fail(function (textStatus, error) {
+        .fail(function(textStatus, error) {
             alert(textStatus + " " + error + "\nReload the page");
         })
 }

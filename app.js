@@ -12,9 +12,9 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 mongoose.connect('mongodb://localhost:27017/G-16', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
     .then(() => {
         console.log('Connected to DB');
     })
@@ -43,13 +43,20 @@ app.get('/dashboard', (req, res) => {
 app.get('/forex', (req, res) => {
     res.render('forex.ejs');
 });
-app.post('/logo', (req, res) => {
-    res.redirect('/');
+app.get('/pricing', (req, res) => {
+    res.render('pricing.ejs');
+});
+// Define routes
+app.get('/about', (req, res) => {
+    res.render('about.ejs'); // Render the About page
 });
 app.post('/logo', (req, res) => {
     res.redirect('/');
 });
-app.post('/signup', async(req, res) => {
+app.post('/logo', (req, res) => {
+    res.redirect('/');
+});
+app.post('/signup', async (req, res) => {
     const user = new User({
         name: req.body.name,
         username: req.body.username,
@@ -65,7 +72,7 @@ app.post('/signup', async(req, res) => {
     res.redirect('/');
 });
 
-app.post('/signin', async(req, res) => {
+app.post('/signin', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     const user = await User.findOne({ username: username, password: password });
@@ -76,6 +83,11 @@ app.post('/signin', async(req, res) => {
         res.redirect('/login');
     }
 });
+
+app.use((req, res, next) => {
+    res.status(404).render('404_not_found.ejs');
+});
+
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
