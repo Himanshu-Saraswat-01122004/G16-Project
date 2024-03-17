@@ -8,7 +8,7 @@ const html = require('html');
 const app = express();
 app.set('views', __dirname + '/views');
 app.use(express.static(path.join(__dirname, 'public')));
-app.set('view engine', 'ejs');
+app.set('viewx` engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 mongoose.connect('mongodb://localhost:27017/G-16', {
