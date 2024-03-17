@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pricing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/ede4348c88.js" crossorigin="anonymous"></script>
+    <link type="text/css" rel="stylesheet" href="css/pricing.css">
+</head>
+
+<body>
+    <nav>
+        <%- include('partials/navbar.ejs') %>
+    </nav>
+    <div class="pricing_container">
+        <h1 class="pricing_text">Our Plans</h1>
+        <div class="pricing_card-container">
+            <div class="pricing_card-wrapper">
+                <div class="pricing_card light">
+                    <div class="pricing_text-overlay">
+                        <h2>Individual</h2>
+                        <div class="pricing_price">₹79</div>
+                        <div class="pricing_details-text">
+                            <span>-Portfolio tracking</span>
+                            <span>for up to 10 stocks</span>
+                            <span>-Basic technical analysis tools</span>
+                            <span>-Email support</span>
+                        </div>
+                    </div>
+                    <div class="pricing_purchase-button-container">
+                        <h2 class="pricing_back-h2">Individual</h2>
+                        <i class="fa-solid fa-person"></i>
+                        <div class="pricing_purchase-button light">Purchase</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pricing_card-wrapper">
+                <div class="pricing_card dark">
+                    <div class="pricing_text-overlay">
+                        <h2>Team</h2>
+                        <div class="pricing_price">₹129</div>
+                        <div class="pricing_details-text">
+                            <span>-Portfolio tracking</span>
+                            <span>for up to 50 stocks</span>
+                            <span>-Advanced technical</span>
+                            <span>analysis tools</span>
+                            <span>-Priority email</span>
+                            <span>and chat support</span>
+                        </div>
+                    </div>
+                    <div class="pricing_purchase-button-container">
+                        <h2 class="pricing_back-h2">Team</h2>
+                        <i class="fa-solid fa-people-group"></i>
+                        <div class="pricing_purchase-button dark">Purchase</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pricing_card-wrapper">
+                <div class="pricing_card light">
+                    <div class="pricing_text-overlay">
+                        <h2>Enterprise</h2>
+                        <div class="pricing_price">₹199</div>
+                        <div class="pricing_details-text">
+                            <span>-Unlimited portfolio tracking</span>
+                            <span>-Institutional-grade analytics</span>
+                            <span>-Dedicated account manager</span>
+                            <span>-API access</span>
+                            <span>-24/7 phone support</span>
+                        </div>
+                    </div>
+                    <div class="pricing_purchase-button-container">
+                        <h2 class="pricing_back-h2">Enterprise</h2>
+                        <i class="fa-solid fa-building"></i>
+                        <div class="pricing_purchase-button light">Purchase</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <%- include('partials/footer.ejs') %>
+    </footer>
+</body>
+
+
+
+</html>
