@@ -43,6 +43,9 @@ app.get('/dashboard', (req, res) => {
 app.get('/forex', (req, res) => {
     res.render('forex.ejs');
 });
+app.get('/pricing', (req, res) => {
+    res.render('pricing.ejs');
+});
 app.post('/logo', (req, res) => {
     res.redirect('/');
 });
