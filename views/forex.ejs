@@ -1,48 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <link rel="icon" href="img/logo.svg" type="image/x-icon">
+    <meta charset="UTF-8">
     <title>Foreign Exchange</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/forex.css">
+    <link type="text/css" rel="stylesheet" href="css/forex.css">
 </head>
 
 <body>
     <nav>
         <%- include('partials/navbar.ejs') %>
     </nav>
-    <div id="loading_container">
-        <h6 style="margin-left: 11%;">Loading data.....</h6>
-        <progress></progress>
-    </div>
-    <div id="currency_container">
-        <label>From</label>
-        <select id="from_currency" class="btn btn-light" name="from_currency" style="margin-left: 2%;">
-            <option value="AED">United Arab Emirates Dirham</option>
-            <option value="USD">US Dollar</option>
-            <option value="EUR">Euro</option>
-        </select>
-        <label style="margin-left: 5%;">To</label>
-        <select id="to_currency" class="btn btn-light" name="to_currency" style="margin-left: 2%;">
-            <option value="AED">United Arab Emirates Dirham</option>
-            <option value="USD">US Dollar</option>
-            <option value="EUR">Euro</option>
-        </select>
-        <button id="get_data" onclick="getData()" class="btn btn-primary" style="margin-left: 5%;">Get Data</button>
-    </div>
-    <button id="download_data" onclick="forex_download()" class="btn btn-success">Download Data(CSV)</button>
-    <div id="exchange_chart">
-        <div id="exchange"></div>
-        <div id="chartContainer"></div>
-    </div>
-    <div id="table_container"></div>
-    <footer>
-        <%- include('partials/footer.ejs') %>
-    </footer>
-</body>
 
+    <Section>
+
+        <img src="img/ffsd_forex_coin.png" id="bird1" style="filter: blur(2px);">
+        <img src="img/ffsd_forex_coin_flipped.png" id="bird2" style="filter: blur(2px);">
+        <!-- <img src="https://user-images.githubusercontent.com/65358991/170092542-9747edcc-fb51-4e21-aaf5-a61119393618.png" id="bird2"> -->
+        <!-- <img src="https://user-images.githubusercontent.com/65358991/170092559-883fe071-eb4f-4610-8c8b-a037d061c617.png" id="forest"> -->
+        <img src="img/ffsd_forex_man_sitting.png" id="forest">
+
+        <h2 id="text" style="text-align:inherit; vertical-align: middle;">Foreign<br><br>Exchange</h2>
+        <!-- <img src="forex_base.png" id="rocks"> -->
+        <!-- <img src="forex_base.png" id="water"> -->
+    </Section>
+
+    <div class="sec">
+        <div id="currency_container">
+            <label>From</label>
+            <select id="from_currency" class="btn btn-light" name="from_currency" style="margin-left: 2%;">
+                    <option value="AED">United Arab Emirates Dirham</option>
+                    <option value="USD">US Dollar</option>
+                    <option value="EUR">Euro</option>
+                    <option value="INR">Rupee</option>
+                </select>
+            <label style="margin-left: 5%;">To</label>
+            <select id="to_currency" class="btn btn-light" name="to_currency" style="margin-left: 2%;">
+                    <option value="AED">United Arab Emirates Dirham</option>
+                    <option value="USD">US Dollar</option>
+                    <option value="EUR">Euro</option>
+                    <option value="INR">Rupee</option>
+                </select>
+            <button id="get_data" onclick="getData()" class="btn btn-primary" style="margin-left: 5%;">Get
+                    Data</button>
+        </div>
+        <div id="loading_container">
+            <h6 style="margin-left: 11%;">Loading data.....</h6>
+            <progress></progress>
+        </div>
+        <button id="download_data" onclick="forex_download()" class="btn btn-success">Download Data(CSV)</button>
+        <div id="exchange_chart">
+            <div id="exchange"></div>
+            <div id="chartContainer"></div>
+        </div>
+        <div id="table_container"></div>
+
+    </div>
+
+    <script>
+        let text = document.getElementById('text');
+        let bird1 = document.getElementById('bird1');
+        let bird2 = document.getElementById('bird2');
+        let btn = document.getElementById('btn');
+        let rocks = document.getElementById('rocks');
+        let forest = document.getElementById('forest');
+        let water = document.getElementById('water');
+        let header = document.getElementById('header');
+
+        window.addEventListener('scroll', function() {
+            let value = window.scrollY;
+
+            text.style.top = 50 + value * -.1 + '%';
+            bird2.style.top = value * -1.5 + 'px';
+            bird2.style.left = value * 2 + 'px';
+            bird1.style.top = value * -1.5 + 'px';
+            bird1.style.left = value * -5 + 'px';
+            btn.style.marginTop = value * 1.5 + 'px';
+            rocks.style.top = value * -.12 + 'px';
+            forest.style.top = value * .25 + 'px';
+            header.style.top = value * .5 + 'px';
+        })
+    </script>
+
+</body>
+<footer>
+    <%- include('partials/footer.ejs') %>
+</footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<script src="js/forex.js"></script>
+<script src="/js/forex.js"></script>
 
 </html>
