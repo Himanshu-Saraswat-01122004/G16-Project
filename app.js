@@ -46,7 +46,6 @@ app.get('/forex', (req, res) => {
 app.get('/pricing', (req, res) => {
     res.render('pricing.ejs');
 });
-// Define routes
 app.get('/about', (req, res) => {
     res.render('about.ejs'); // Render the About page
 });
