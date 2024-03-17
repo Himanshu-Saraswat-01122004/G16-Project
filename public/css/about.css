@@ -1,0 +1,39 @@
+/* CSS for About Us Page */
+
+/* Style the container */
+.container {
+    padding: 50px;
+}
+
+/* Center the text and image */
+.text-center {
+    text-align: center;
+}
+
+/* Style the logo image */
+.img-fluid {
+    max-width: 200px;
+}
+
+/* Style the list of values */
+.list-unstyled {
+    margin-top: 20px;
+}
+
+/* Style the footer */
+footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Style links in the footer */
+footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+/* Style links on hover */
+footer a:hover {
+    text-decoration: underline;
+}

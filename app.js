@@ -43,6 +43,10 @@ app.get('/dashboard', (req, res) => {
 app.get('/forex', (req, res) => {
     res.render('forex.ejs');
 });
+// Define routes
+app.get('/about', (req, res) => {
+    res.render('about.ejs'); // Render the About page
+});
 app.post('/logo', (req, res) => {
     res.redirect('/');
 });
