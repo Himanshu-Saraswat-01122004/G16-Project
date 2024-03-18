@@ -4,10 +4,11 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 const html = require('html');
-// mongosh-encryption
-const encrypt = require('mongoose-encryption');
+const { error } = require('console');
 
 const app = express();
+const notifier = require('node-notifier');
+
 app.set('views', __dirname + '/views');
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
@@ -25,13 +26,11 @@ mongoose.connect('mongodb://localhost:27017/G-16', {
     });
 
 
-    const newuser = new mongoose.Schema({
-        name: String,
-        username: String,
-        password: String
-    });
-    const secret = 'Thisisourlittlesecret.';
-    newuser.plugin(encrypt, { secret: secret, encryptedFields: ['password'] });
+const newuser = new mongoose.Schema({
+    name: String,
+    username: String,
+    password: String
+});
 const User = mongoose.model('User', newuser);
 app.get('/', (req, res) => {
     res.render('Home.ejs');
@@ -55,12 +54,6 @@ app.get('/pricing', (req, res) => {
 app.get('/about', (req, res) => {
     res.render('about.ejs'); // Render the About page
 });
-app.post('/logo', (req, res) => {
-    res.redirect('/');
-});
-app.post('/logo', (req, res) => {
-    res.redirect('/');
-});
 app.post('/signup', async (req, res) => {
     const user = new User({
         name: req.body.name,
@@ -74,7 +67,7 @@ app.post('/signup', async (req, res) => {
         .catch(err => {
             console.log(`err: ${err}`);
         });
-    res.redirect('/');
+    res.redirect('/login');
 });
 
 app.post('/signin', async (req, res) => {
@@ -82,9 +75,13 @@ app.post('/signin', async (req, res) => {
     const password = req.body.password;
     const user = await User.findOne({ username: username, password: password });
     if (user) {
-        res.redirect('/');
+        res.redirect('/dashboard');
     } else {
-        alert('Invalid username or password');
+        notifier.notify({
+            title: 'Login',
+            message: 'Invalid username or password',
+        });
+        // error('Invalid username or password');
         res.redirect('/login');
     }
 });
