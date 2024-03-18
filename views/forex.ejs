@@ -5,7 +5,8 @@
     <link rel="icon" href="img/logo.svg" type="image/x-icon">
     <meta charset="UTF-8">
     <title>Foreign Exchange</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="css/forex.css">
 </head>
 
@@ -31,20 +32,20 @@
         <div id="currency_container">
             <label>From</label>
             <select id="from_currency" class="btn btn-light" name="from_currency" style="margin-left: 2%;">
-                    <option value="AED">United Arab Emirates Dirham</option>
-                    <option value="USD">US Dollar</option>
-                    <option value="EUR">Euro</option>
-                    <option value="INR">Rupee</option>
-                </select>
+                <option value="INR">Indian Rupee</option>
+                <option value="AED">United Arab Emirates Dirham</option>
+                <option value="USD">US Dollar</option>
+                <option value="EUR">Euro</option>
+            </select>
             <label style="margin-left: 5%;">To</label>
             <select id="to_currency" class="btn btn-light" name="to_currency" style="margin-left: 2%;">
-                    <option value="AED">United Arab Emirates Dirham</option>
-                    <option value="USD">US Dollar</option>
-                    <option value="EUR">Euro</option>
-                    <option value="INR">Rupee</option>
-                </select>
+                <option value="INR">Indian Rupee</option>
+                <option value="AED">United Arab Emirates Dirham</option>
+                <option value="USD">US Dollar</option>
+                <option value="EUR">Euro</option>
+            </select>
             <button id="get_data" onclick="getData()" class="btn btn-primary" style="margin-left: 5%;">Get
-                    Data</button>
+                Data</button>
         </div>
         <div id="loading_container">
             <h6 style="margin-left: 11%;">Loading data.....</h6>
@@ -69,7 +70,7 @@
         let water = document.getElementById('water');
         let header = document.getElementById('header');
 
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             let value = window.scrollY;
 
             text.style.top = 50 + value * -.1 + '%';
