@@ -37,8 +37,8 @@ app.get('/home', (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login.ejs');
 });
-app.get('/dashboard', (req, res) => {
-    res.render('dashboard.ejs');
+app.get('/watchlist', (req, res) => {
+    res.render('watchlist.ejs');
 });
 app.get('/forex', (req, res) => {
     res.render('forex.ejs');
