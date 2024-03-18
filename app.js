@@ -53,8 +53,8 @@ app.get('/about', (req, res) => {
 app.post('/logo', (req, res) => {
     res.redirect('/');
 });
-app.post('/logo', (req, res) => {
-    res.redirect('/');
+app.get('/admin', (req, res) => {
+    res.render('Admin.ejs');
 });
 app.post('/signup', async (req, res) => {
     const user = new User({
