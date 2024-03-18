@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 const html = require('html');
+// mongosh-encryption
+const encrypt = require('mongoose-encryption');
 
 const app = express();
 app.set('views', __dirname + '/views');
@@ -22,11 +24,14 @@ mongoose.connect('mongodb://localhost:27017/G-16', {
         console.log('Error: ', err.message);
     });
 
-const newuser = new mongoose.Schema({
-    name: String,
-    username: String,
-    password: String
-});
+
+    const newuser = new mongoose.Schema({
+        name: String,
+        username: String,
+        password: String
+    });
+    const secret = 'Thisisourlittlesecret.';
+    newuser.plugin(encrypt, { secret: secret, encryptedFields: ['password'] });
 const User = mongoose.model('User', newuser);
 app.get('/', (req, res) => {
     res.render('Home.ejs');
