@@ -6,7 +6,7 @@ const path = require('path');
 const html = require('html');
 // mongosh-encryption
 const encrypt = require('mongoose-encryption');
-
+//https://sites.google.com/site/odeluvanga/home
 const app = express();
 app.set('views', __dirname + '/views');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -25,13 +25,13 @@ mongoose.connect('mongodb://localhost:27017/G-16', {
     });
 
 
-    const newuser = new mongoose.Schema({
-        name: String,
-        username: String,
-        password: String
-    });
-    const secret = 'Thisisourlittlesecret.';
-    newuser.plugin(encrypt, { secret: secret, encryptedFields: ['password'] });
+const newuser = new mongoose.Schema({
+    name: String,
+    username: String,
+    password: String
+});
+const secret = 'Thisisourlittlesecret.';
+newuser.plugin(encrypt, { secret: secret, encryptedFields: ['password'] });
 const User = mongoose.model('User', newuser);
 app.get('/', (req, res) => {
     res.render('Home.ejs');
@@ -52,7 +52,7 @@ app.get('/pricing', (req, res) => {
     res.render('pricing.ejs');
 });
 app.get('/about', (req, res) => {
-    res.render('about.ejs'); // Render the About page
+    res.render('about.ejs');
 });
 app.post('/logo', (req, res) => {
     res.redirect('/');
