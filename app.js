@@ -8,7 +8,7 @@ import { router as authRoutes } from './routes/auth.js';
 
 const app = express();
 
-app.set('views', '/views');
+app.set('views','views');
 
 app.use(express.static('public'));
 

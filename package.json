@@ -2,12 +2,12 @@
   "name": "g16-project",
   "version": "1.0.0",
   "description": "<p>We have made a home page like thing till now</p>",
-  "main": "src/app.js",
+  "main": "app.js",
     "type": "module",
   "scripts": {
     "build": "npx tailwindcss -i ./public/css/input.css -o ./public/css/output.css --watch",
-    "dev": "nodemon src/app.js",
-    "start": "node src/app.js"
+    "dev": "nodemon app.js",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
