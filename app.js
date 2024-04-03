@@ -1,22 +1,21 @@
 import express from 'express';
 import { connect } from 'mongoose';
-import { urlencoded, json } from 'body-parser';
+// import { urlencoded, json } from 'body-parser';
+import bodyParser from 'body-parser';
 import { join } from 'path';
 
-
-
-import  authRoutes from './routes/auth.js';
+import { router as authRoutes } from './routes/auth.js';
 
 const app = express();
 
-app.set('views', __dirname + '/views');
+app.set('views', '/views');
 
-app.use(express.static(join(__dirname, 'public')));
+app.use(express.static('public'));
 
 app.set('view engine', 'ejs');
 
-app.use(urlencoded({ extended: true }));
-app.use(json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 connect('mongodb://localhost:27017/G-16', {
     useNewUrlParser: true,
@@ -51,11 +50,10 @@ app.get('/about', (req, res) => {
     res.render('about.ejs'); // Render the About page
 });
 
-
 app.use((req, res, next) => {
     res.status(404).render('404_not_found.ejs');
 });
-app.use('/auth',authRoutes );
+app.use('/auth', authRoutes);
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');

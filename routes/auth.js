@@ -1,9 +1,8 @@
 import { Router } from "express";
-import { User } from "../models/users";
-import { notify } from "node-notifier";
+import { User } from "../models/users.js";
 import { genSaltSync, hashSync } from 'bcrypt';
 
-export default router = Router();
+export const router = Router();
 
 const SaltRounds = genSaltSync(10);
 router.post('/signup', async (req, res) => {
@@ -34,10 +33,10 @@ router.post('/signin', async (req, res) => {
     if (user) {
         res.redirect('/dashboard');
     } else {
-        notify({
-            title: 'Login',
-            message: 'Invalid username or password',
-        });
+        // notify({
+        //     title: 'Login',
+        //     message: 'Invalid username or password',
+        // });
         // error('Invalid username or password');
         res.redirect('/login');
     }
