@@ -6,6 +6,7 @@ export const router = Router();
 
 const SaltRounds = genSaltSync(10);
 router.post('/signup', async (req, res) => {
+    console.log("loda");
     const hash = hashSync(req.body.password, SaltRounds);
 
     const user = new User({
@@ -13,16 +14,15 @@ router.post('/signup', async (req, res) => {
         username: req.body.username,
         password: hash,
     });
-    await user
-        .save()
+    await user.save()
         .then(() => {
             res.status(200);
         })
         .catch((err) => {
             console.log(`err: ${err}`);
         });
-        res.status(200).json({message : "User created successfully"});
-        // res.redirect('/login');
+        // res.status(200).json({message : "User created successfully"});
+        res.redirect('/login');
 });
 
 router.post('/signin', async (req, res) => {
