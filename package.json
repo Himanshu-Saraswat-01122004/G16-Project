@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "<p>We have made a home page like thing till now</p>",
   "main": "app.js",
-    "type": "module",
+  "type": "module",
   "scripts": {
     "build": "npx tailwindcss -i ./public/css/input.css -o ./public/css/output.css --watch",
     "dev": "nodemon app.js",
@@ -23,6 +23,7 @@
     "express": "^4.18.3",
     "html": "^1.0.0",
     "jsonwebtoken": "^9.0.2",
+    "mongod": "^2.0.0",
     "mongoose": "^8.2.1",
     "mongoose-encryption": "^2.1.2",
     "node-notifier": "^10.0.1",
