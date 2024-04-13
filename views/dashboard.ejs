@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="js/dashboard.js" defer></script>
+    <!-- <script src="./style.js"></script> -->
+</head>
+
+<body>
+    <nav>
+    <%- include('partials/navbar.ejs') %>
+    </nav>
+
+    <div class="container" style="margin-top:100px ;">
+        <div id="title" class="b-gray curve-edge">
+            <i class="fa-solid fa-arrow-up-long"></i>
+            <h2 id="heading">Stock Market Dashboard</h2>
+            <i class="fa-solid fa-arrow-down-long"></i>
+        </div>
+
+        <!-- <div id="search-container" >hii</div> -->
+        <div id="search-box" class="b-light-gray curve-edge">
+            <div id="search-element">
+                <input type="search" id="search-input" placeholder="Search for Symbol...." class="curve-edge">
+                <button id="search-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+
+            <div id="time-frames">
+                <div>
+                    <input type="radio" value="INTRADAY" name="timing" class="radio-input" id="radio1">
+                    <label for="radio1" class="curve-edge radio-lable">Intraday</label>
+                    <!-- <div class="curve-edge">Intraday</div> -->
+
+                    <input type="radio" value="DAILY" name="timing" class="radio-input" id="radio2">
+                    <label for="radio2" class="curve-edge radio-lable">Daily</label>
+                    <!-- <div class="curve-edge">Daily</div> -->
+                </div>
+                <div>
+                    <input type="radio" value="WEEKLY" name="timing" class="radio-input" id="radio3">
+                    <label for="radio3" class="curve-edge radio-lable">Weekly</label>
+                    <!-- <div class="curve-edge">Weekly</div> -->
+
+                    <input type="radio" value="MONTHLY" name="timing" class="radio-input" id="radio4">
+                    <label for="radio4" class="curve-edge radio-lable">Monthly</label>
+                    <!-- <div class="curve-edge">Monthly</div> -->
+                </div>
+            </div>
+        </div>
+
+        <div id="watch-list" class="b-light-gray curve-edge">
+            <h2 class="curve-edge b-gray">YOUR WATCHLIST</h2>
+            <div id="stocks">
+                <!-- <div class="stock curve-edge">
+                        <div class="stock-info">
+                            <div class="symbol info-item">AMZN</div>
+                        <div class="price info-item">123.45</div>
+                        <div class="time info-item">Intraday</div>
+                        </div>
+                    </div>
+                    <div class="delete-btn">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                 <div class="stock curve-edge">
+                    <div class="symbol">AMZN</div>
+                    <div class="price">123.45</div>
+                    <div class="time">Intraday</div>
+                    <div class="delete-btn">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+                <div class="stock curve-edge">
+                    <div class="symbol">AMZN</div>
+                    <div class="price">123.45</div>
+                    <div class="time">Intraday</div>
+                    <div class="delete-btn">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                </div> -->
+            </div>
+
+
+
+            <div class="modal hide curve-edge" id="stock-info">
+                <h3 id="stock-title"></h3>
+                <div id="table-head">
+                    <div class="head-cell" id="date">DATE</div>
+                    <div class="head-cell">OPEN</div>
+                    <div class="head-cell">HIGH</div>
+                    <div class="head-cell">LOW</div>
+                    <div class="head-cell">CLOSE</div>
+                    <div class="head-cell">VOLUME</div>
+                </div>
+                <div class="tbody" id="details">
+                    <!-- <div class="table-row">
+                            <div class="data-cell">2022-12-22</div>
+                            <div class="data-cell">153.45</div>
+                            <div class="data-cell">929.3</div>
+                            <div class="data-cell">610.2</div>
+                            <div class="data-cell">123.3</div>
+                            <div class="data-cell">355</div>
+                        </div> -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <footer>
+        <%- include('partials/footer.ejs') %>
+    </footer>
+</body>
+
+</html>
