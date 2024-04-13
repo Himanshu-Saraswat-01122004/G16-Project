@@ -19,11 +19,3 @@ export const newuser = new Schema({
 });
 
 export const User = model('User', newuser);
-
-const superAdmin = new newuser({
-    name: 'Super Admin',
-    username: 'superadmin@iiits.in',
-    password: 'superadmin',
-    roles: 'superAdmin'
-});
-superAdmin.save();

@@ -1,11 +1,11 @@
 import  { Router } from 'express';  
 import { Stock } from '../models/stocks.js';
-import { User } from '../models/users.js';
 
 const router = Router();
 
-router.post('/createData', async (req, res) => {
+router.post('/createStock', async (req, res) => {
     const stock = new Stock({
+        stockId: req.body.stockId,
         name: req.body.name,
         price: req.body.price,
         high: req.body.high,
@@ -20,20 +20,15 @@ router.post('/createData', async (req, res) => {
         week52High: req.body.week52High,
         week52Low: req.body.week52Low,
         ytdChange: req.body.ytdChange,
-        lastUpdated: req.body.lastUpdated,
     });
-    // await stock.save();
-    res.status(200).json({ message: 'Data created successfully' });
+    await stock.save();
+    res.status(200).json({ message: 'Data created successfully', stock: stock });
 });
 
-router.post('/createSuperAdmin', async (req, res) => {
-    const user = new User({
-        name: 'Super Admin',
-        username: 'superadmin@iiits.in',
-        password: 'superadmin',
-        roles: 'superAdmin',
-    })
-    await user.save();
+router.post('/updateStock', async (req, res) => {
+    const stock = await Stock.findOneAndUpdate({ stockId: req.params.stockId }, {...req.body}).exec();
+    res.status(200).json({ message: 'Data updated successfully', stock: stock });
 });
+
 
 export default router;

@@ -1,11 +1,8 @@
 import express from 'express';
 import { connect } from 'mongoose';
-// import { urlencoded, json } from 'body-parser';
 import bodyParser from 'body-parser';
-import { join } from 'path';
-
 import  authRoutes from './routes/auth.js';
-import createData from './routes/createdata.js';
+import stockRoutes from './routes/stocks.js';
 import premiumRoutes from './routes/premium.js';
 
 const app = express();
@@ -54,7 +51,7 @@ app.get('/about', (req, res) => {
 });
 
 app.use('/auth', authRoutes);
-app.use('/data', createData);
+app.use('/stocks', stockRoutes);
 app.use('/premium', premiumRoutes);
 
 app.use((req, res, next) => {
