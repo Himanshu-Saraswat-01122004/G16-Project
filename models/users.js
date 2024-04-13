@@ -1,16 +1,29 @@
 import { connect, Schema, model } from 'mongoose';
 
+// define the role also
+export const roles = ['user', 'admin', 'permiumUser', 'superAdmin'];
+
 export const newuser = new Schema({
+
     name: String,
-    // username should be uniuqe so that we can use it as a primary key
     username: {
         type: String,
         unique: true,
     },
     password: String,
-    isAdmin: {
-        type: Boolean,
-        default: false,
+    roles: {
+        type: String,
+        default: 'user',
+        enum: roles,
     }
 });
+
 export const User = model('User', newuser);
+
+const superAdmin = new newuser({
+    name: 'Super Admin',
+    username: 'superadmin@iiits.in',
+    password: 'superadmin',
+    roles: 'superAdmin'
+});
+superAdmin.save();
