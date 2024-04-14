@@ -2,24 +2,29 @@
   "name": "g16-project",
   "version": "1.0.0",
   "description": "<p>We have made a home page like thing till now</p>",
-  "main": "index.js",
+  "main": "app.js",
+  "type": "module",
   "scripts": {
     "build": "npx tailwindcss -i ./public/css/input.css -o ./public/css/output.css --watch",
-    "start": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "tailwindcss": "^3.4.1",
-    "vite": "^5.1.4"
+    "tailwindcss": "^3.4.1"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
     "ejs": "^3.1.9",
     "express": "^4.18.3",
     "html": "^1.0.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.1",
+    "mongoose-encryption": "^2.1.2",
     "nodemon": "^3.1.0"
   }
 }
