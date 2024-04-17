@@ -83,30 +83,18 @@ section img {
     height: 100%;
     object-fit: cover;
     pointer-events: none;
-}
-
-@keyframes text-animation {
-    0% {
-        color: #40c6ff;
-    }
-    50% {
-        color: #0e1514;
-    }
-    100% {
-        color: #40c6ff;
-    }
+    opacity: 70%;
 }
 
 section #text {
     position: absolute;
-    /* color: black; */
+    color: black;
     font-size: 10vw;
     line-height: .55em;
     font-family: "Bakbak One", sans-serif;
     font-weight: 400;
     font-style: normal;
     transform: translatey(-10%);
-    animation: text-animation 15s infinite;
     /* Adjust the color and blur radius as needed */
 }
 
@@ -146,30 +134,29 @@ section #text span {
     color: #fff;
 }
 
-footer {
-    position: relative;
-    padding: 0px 100px;
-    background: var(--primary);
-}
-
-footer a {
-    text-decoration: none;
-    color: #fff;
-}
-
 #loading_container {
     display: none;
-    width: 200px;
+    width: 100%;
     margin-top: 1%;
     margin-left: 45%;
     margin-right: auto;
 }
 
 #currency_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: 5%;
-    margin-left: 18%;
-    margin-right: auto;
 }
+
+#currency_container label {
+    margin-bottom: 10px;
+}
+
+#currency_container select {
+    margin-bottom: 20px;
+}
+
 
 #exchange_chart {
     display: flex;

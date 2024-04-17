@@ -1,4 +1,5 @@
-var api = "QH43QW1MNDF4J28A";
+// var api = "QH43QW1MNDF4J28A";
+var api = "RLS7V1SO4N3CM4LQ";
 var from_currency = null;
 var to_currency = null;
 var forex_dps = [];
@@ -68,6 +69,7 @@ function getGraph() {
 function getGraphData() {
     $.getJSON("https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=" + from_currency + "&to_symbol=" + to_currency + "&outputsize=full&apikey=" + api)
         .done(function(data) {
+            console.log(data)
             var date = data["Time Series FX (Daily)"]
             let a = 20;
             let b = 7;
@@ -114,6 +116,26 @@ function getForexExchangeData() {
             alert(textStatus + " " + error + "\nReload the page");
         })
 }
+function populateCurrencyOptions() {
+    $.getJSON("https://openexchangerates.org/api/currencies.json")
+        .done(function(data) {
+            var currencies = data;
+            var fromSelect = document.getElementById("from_currency");
+            var toSelect = document.getElementById("to_currency");
+            fromSelect.innerHTML = "";
+            toSelect.innerHTML = "";
+            for (var currency in currencies) {
+                var option = document.createElement("option");
+                option.value = currency;
+                option.text = currencies[currency];
+                fromSelect.appendChild(option.cloneNode(true));
+                toSelect.appendChild(option.cloneNode(true)); // Use cloned node to prevent moving the same option element
+            }
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            alert(textStatus + " " + errorThrown + "\nReload the page");
+        });
+}
 
 function getData() {
     if (chart !== null) {
@@ -132,3 +154,7 @@ function getData() {
     document.getElementById("get_data").disabled = true;
     getForexExchangeData();
 }
+
+$(document).ready(function() {
+    populateCurrencyOptions();
+});
