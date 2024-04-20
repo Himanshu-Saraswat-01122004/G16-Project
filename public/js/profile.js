@@ -1,7 +1,6 @@
 // adding event listner
 let submitButton = document.getElementById('submitProfile');
-submitButton.addEventListener('click', async function() {
-    
+submitButton.addEventListener('click', async function () {
     let name = document.getElementById('name').value;
     let DOB = document.getElementById('DOB').value;
     let phoneno = document.getElementById('phoneno').value;
@@ -15,10 +14,12 @@ submitButton.addEventListener('click', async function() {
     let pincode = document.getElementById('pincode').value;
     let about = document.getElementById('about').value;
 
+    const token = localStorage.getItem('G16-Token');
     let response = await fetch('/updateProfile', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Bearer: token,
         },
         body: JSON.stringify({
             name: name,
@@ -32,13 +33,11 @@ submitButton.addEventListener('click', async function() {
             state: state,
             city: city,
             pincode: pincode,
-            about: about
-        })
+            about: about,
+        }),
     });
 
     let result = await response.json();
-    alert(result.message);  
+    alert(result.message);
     location.reload();
-
 });
-
