@@ -13,10 +13,9 @@ router.post('/signup', async (req, res) => {
         name: req.body.name,
         username: req.body.username,
         password: hash,
-        // isAdmin: req.body.isAdmin,
         roles: req.body.roles,
     });
-    // if username is already taken then return 400 status code
+
     const existing = await User.findOne({ username: req.body.username }).exec();
     if (existing) {
         return res.status(400).json({ message: 'Username already taken' });
@@ -34,7 +33,6 @@ router.post('/signup', async (req, res) => {
         // res.redirect('/login');
     }
 });
-
 
 const generateAccessToken = (user) => {
     return jwt.sign(
@@ -113,5 +111,6 @@ router.post('/logout', verify, (req, res) => {
     refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
     res.status(200).json('You logged out successfully');
 });
+
 export default router;
 

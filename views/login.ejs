@@ -35,7 +35,7 @@
                 </form>
             </div>
             <div class="form-container sign-in-container">
-                <form action="auth/signin" method="POST">
+                <form >
                     <a href="/">
                         <div class="logo flex mt-24">
                             <img src="https://static.vecteezy.com/system/resources/previews/017/785/212/non_2x/money-icon-on-transparent-background-free-png.png"
@@ -44,10 +44,10 @@
                         </div>
                     </a>
                     <h1 class="-ml-56">Sign in</h1>
-                    <input type="email" name="username" placeholder="Email" />
-                    <input type="password" name="password" placeholder="Password" />
+                    <input id="signInEmail" type="email" name="username" placeholder="Email" />
+                    <input id = "singInPassword" type="password" name="password" placeholder="Password" />
                     <a href="#">Forgot your password?</a>
-                    <button class="bg-[#008ecf] px-9 py-2 rounded-full text-white font-semibold">Sign In</button>
+                    <button id = "signInBtn" class="bg-[#008ecf] px-9 py-2 rounded-full text-white font-semibold">Sign In</button>
                 </form>
             </div>
             <div class="overlay-container">
@@ -73,6 +73,7 @@
             </div>
         </div>
         <script src="js/Script.js"></script>
+        <script src="js/singIn.js"></script>
     </div>
 </body>
 

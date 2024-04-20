@@ -1,7 +1,6 @@
 import  { Router } from 'express';  
 import { Stock } from '../models/stocks.js';
 import verify from '../middleware/verify.js';
-import { User } from '../models/users.js';
 
 const router = Router();
 
@@ -32,7 +31,6 @@ router.get('/premiumtest', verify,  async (req, res) => {
         }
         else{
             res.status(200).json(stock);
-        
         }
     }
     // res.status(200).json({ message: 'Premium data' });  
