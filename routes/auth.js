@@ -36,7 +36,7 @@ router.post('/signup', async (req, res) => {
 
 const generateAccessToken = (user) => {
     return jwt.sign(
-        { username: user.username, roles: user.roles},
+        { username: user.username, roles: user.roles },
         'mySecretKey',
         { expiresIn: '1d' }
     );
@@ -44,7 +44,7 @@ const generateAccessToken = (user) => {
 
 const generateRefreshToken = (user) => {
     return jwt.sign(
-        { username: user.username, roles: user.roles},
+        { username: user.username, roles: user.roles },
         'myrefreshSecretkey'
     );
 };
@@ -53,11 +53,13 @@ router.post('/signin', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     const user = await User.findOne({ username: username }).exec();
-    if(!user){
+    if (!user) {
         res.status(401).json({ message: 'Invalid Credentials' });
+        return;
     }
+    console.log(user);
     const ispassvalid = await bcrypt.compare(password, user.password);
-    if(ispassvalid){
+    if (ispassvalid) {
         const accessToken = generateAccessToken(user);
         const refreshToken = generateRefreshToken(user);
         refreshTokens.push(refreshToken);
@@ -67,8 +69,7 @@ router.post('/signin', async (req, res) => {
             refreshToken: refreshToken,
         });
         // res.status(200).json({ message: 'User logged in successfully' });
-    }
-    else{
+    } else {
         res.status(401).json({ message: 'Wrong Passwrod' });
     }
 });
@@ -96,7 +97,11 @@ router.post('/refresh', (req, res) => {
 });
 
 router.delete('/delete/:id', verify, async (req, res) => {
-    if ((req.user.roles === 'admin' || req.user.roles === 'superAdmin') || req.user.id === req.params.id) {
+    if (
+        req.user.roles === 'admin' ||
+        req.user.roles === 'superAdmin' ||
+        req.user.id === req.params.id
+    ) {
         await User.findByIdAndDelete(req.params.id);
         res.status(200).json({ message: 'User deleted successfully' });
     } else {
@@ -113,4 +118,3 @@ router.post('/logout', verify, (req, res) => {
 });
 
 export default router;
-
