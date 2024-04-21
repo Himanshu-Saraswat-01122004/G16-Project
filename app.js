@@ -1,9 +1,11 @@
 import express from 'express';
 import { connect } from 'mongoose';
 import bodyParser from 'body-parser';
-import  authRoutes from './routes/auth.js';
+import authRoutes from './routes/auth.js';
 import stockRoutes from './routes/stocks.js';
 import premiumRoutes from './routes/premium.js';
+import superAdminRoutes from './routes/superadmin.js';
+import updateProfile from './routes/updateProfile.js';
 
 const app = express();
 
@@ -40,9 +42,9 @@ app.get('/login', (req, res) => {
 app.get('/watchlist', (req, res) => {
     res.render('watchlist.ejs');
 });
-app.get('/dashboard', (req, res) => {
-    res.render('dashboard.ejs');
-});
+// app.get('/dashboard', (req, res) => {
+//     res.render('dashboard.ejs');
+// });
 app.get('/forex', (req, res) => {
     res.render('forex.ejs');
 });
@@ -59,6 +61,8 @@ app.get('/profile', (req, res) => {
 app.use('/auth', authRoutes);
 app.use('/stocks', stockRoutes);
 app.use('/premium', premiumRoutes);
+app.use('/superadmin', superAdminRoutes);
+app.use('/updateProfile', updateProfile);
 
 app.use((req, res, next) => {
     res.status(404).render('404_not_found.ejs');

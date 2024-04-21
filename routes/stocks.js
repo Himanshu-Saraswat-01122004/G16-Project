@@ -4,6 +4,11 @@ import { Stock } from '../models/stocks.js';
 const router = Router();
 
 router.post('/createStock', async (req, res) => {
+    // check if stock already exists
+    const stockExists = await Stock.findOne({ stockId: req.body.stockId }).exec();
+    if (stockExists) {
+        return res.status(409).json({ message: 'Stock already exists' });
+    }
     const stock = new Stock({
         stockId: req.body.stockId,
         name: req.body.name,
@@ -29,6 +34,4 @@ router.post('/updateStock', async (req, res) => {
     const stock = await Stock.findOneAndUpdate({ stockId: req.params.stockId }, {...req.body}).exec();
     res.status(200).json({ message: 'Data updated successfully', stock: stock });
 });
-
-
 export default router;

@@ -80,7 +80,7 @@ nav {
 }
 
 .Profile-Completer-Box-Content-Form input,
-.Profile-Completer-Box-Content-Form select {
+.Profile-Completer-Box-Content-Form select{
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
@@ -88,6 +88,11 @@ nav {
     border-radius: 5px;
 }
 
+/* increase the width of textarea */
+.Profile-Completer-Box-Content-Form textarea {
+    height: 100px;
+    width: 1000px;
+}
 .Profile-Completer-Box-Content-Form input[type="checkbox"] {
     margin-right: 10px;
 }

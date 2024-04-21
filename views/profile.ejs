@@ -9,37 +9,24 @@
 </head>
 
 <body>
-    <nav>
-        <%- include('partials/navbar.ejs') %> 
-    </nav>
     <div class="Profile-Completer-Box">
         <div class="Profile-Completer-Box-Content">
             <div class="Profile-Completer-Box-Content-Heading">
                 <h1>Complete Your Profile</h1>
             </div>
             <div class="Profile-Completer-Box-Content-Form">
-                <form id="profileForm" action="/profile" method="POST">
+                <form id="profileForm" >
                     <div class="Profile-Completer-Box-Content-Form-Input">
                         <label for="name">Name *</label>
                         <input type="text" name="name" id="name" placeholder="Enter your name" required>
                     </div>
                     <div class="Profile-Completer-Box-Content-Form-Input">
+                        <label for="birthdate">Birth Date</label>
+                        <input type="date" name="birthdate" id="birthdate">
+                    </div>
+                    <div class="Profile-Completer-Box-Content-Form-Input">
                         <label for="phone">Phone *</label>
                         <input type="text" name="phone" id="phone" placeholder="Enter your phone number" required>
-                    </div>
-                    <div class="Profile-Completer-Box-Content-Form-Input">
-                        <input type="checkbox" id="verifyPhone" name="verifyPhone">
-                        <label for="verifyPhone">Verify Phone Number with OTP</label>
-                    </div>
-                    <div id="otpContainer" style="display: none;">
-                        <div class="Profile-Completer-Box-Content-Form-Input">
-                            <label for="otp">OTP *</label>
-                            <input type="text" name="otp" id="otp" placeholder="Enter OTP" required>
-                        </div>
-                    </div>
-                    <div class="Profile-Completer-Box-Content-Form-Input">
-                        <label for="address">Address</label>
-                        <input type="text" name="address" id="address" placeholder="Enter your address">
                     </div>
                     <div class="Profile-Completer-Box-Content-Form-Input">
                         <label for="gender">Gender</label>
@@ -50,10 +37,6 @@
                         </select>
                     </div>
                     <div class="Profile-Completer-Box-Content-Form-Input">
-                        <label for="birthdate">Birth Date</label>
-                        <input type="date" name="birthdate" id="birthdate">
-                    </div>
-                    <div class="Profile-Completer-Box-Content-Form-Input">
                         <label for="aadhar">Aadhar Card No.</label>
                         <input type="text" name="aadhar" id="aadhar" placeholder="Enter Aadhar Card number">
                     </div>
@@ -62,24 +45,45 @@
                         <input type="text" name="pan" id="pan" placeholder="Enter Pan Card number">
                     </div>
                     <div class="Profile-Completer-Box-Content-Form-Input">
-                        <label for="income">Income Details</label>
-                        <input type="text" name="income" id="income" placeholder="Enter income details">
+                        <label for="address">Address</label>
+                        <input type="text" name="address" id="address" placeholder="Enter your address">
                     </div>
                     <div class="Profile-Completer-Box-Content-Form-Input">
-                        <label for="profilePhoto">Profile Photo</label>
-                        <input type="file" name="profilePhoto" id="profilePhoto">
+                        <label for="country">Country</label>
+                        <select name="country" id="country">
+                            <option value="india">India</option>
+                            <option value="usa">USA</option>
+                            <option value="uk">UK</option>
+                            <option value="australia">Australia</option>
+                            <option value="canada">Canada</option>
+                        </select>
                     </div>
+                    <div class="Profile-Completer-Box-Content-Form-Input">
+                        <label for="state">State</label>
+                        <input type="text" name="state" id="state" placeholder="Enter your state">
+                    </div>
+                    <div class="Profile-Completer-Box-Content-Form-Input">
+                        <label for="city">City</label>
+                        <input type="text" name="city" id="city" placeholder="Enter your city">
+                    </div>
+                    <div class="Profile-Completer-Box-Content-Form-Input">
+                        <label for="pincode">Pincode</label>
+                        <input type="text" name="pincode" id="pincode" placeholder="Enter your pincode">
+                    </div>
+                    <div class="Profile-Completer-Box-Content-Form-Input">
+                        <label for="about">About</label>
+                        <textarea name="about" id="about" placeholder="Write something about yourself"></textarea>
+                    </div>
+
                     <div class="Profile-Completer-Box-Content-Form-Submit">
-                        <button type="submit">Complete</button>
+                        <button id="submitProfile">Complete</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <footer>
-        <%- include('partials/footer.ejs') %>
-    </footer>
     <link type="script" src="/js/profile.js">
+
 </body>
 </html>
 
