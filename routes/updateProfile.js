@@ -1,10 +1,11 @@
 import { User } from '../models/users.js';
 import verify from '../middleware/verify.js';
 import router from './auth.js';
+import jwt from 'jsonwebtoken';
 
-router.post('/updateProfile', verify, async (req, res) => {
-    const user = await User.findById(req.user.id).exec();
-    user.name = req.body.name;updateProfile
+router.post('/updateProfilecontent',verify, async (req, res) => {
+    const user = await User.findOne({ username: req.user.username });
+    user.name = req.body.name;
     user.DOB = req.body.DOB;
     // calculate age
     const today = new Date();

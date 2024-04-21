@@ -10,7 +10,7 @@ const isAdmin = (req, res, next) => {
             if (err) {
                 return res.status(403).json({ message: 'Token is not valid' });
             }
-            if (user.roles !== 'admin' || user.roles !== 'superAdmin') {
+            if (user.roles !== 'admin' && user.roles !== 'superAdmin') {
                 return res.status(401).json({ message: 'You are not Admin' });
             }
             req.user = user;

@@ -3,6 +3,7 @@ import { User } from '../models/users.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import verify from '../middleware/verify.js';
+import isAdmin from '../middleware/isAdmin.js';
 
 const router = Router();
 
@@ -57,18 +58,19 @@ router.post('/signin', async (req, res) => {
         res.status(401).json({ message: 'Invalid Credentials' });
         return;
     }
-    console.log(user);
+    // console.log(user);
     const ispassvalid = await bcrypt.compare(password, user.password);
     if (ispassvalid) {
         const accessToken = generateAccessToken(user);
         const refreshToken = generateRefreshToken(user);
         refreshTokens.push(refreshToken);
         res.status(200).json({
-            user,
             accessToken: accessToken,
             refreshToken: refreshToken,
+            message: 'User logged in successfully',
         });
         // res.status(200).json({ message: 'User logged in successfully' });
+        // res.redirect('/profile');
     } else {
         res.status(401).json({ message: 'Wrong Passwrod' });
     }
@@ -96,7 +98,7 @@ router.post('/refresh', (req, res) => {
     });
 });
 
-router.delete('/delete/:id', verify, async (req, res) => {
+router.delete('/delete/:id', verify, isAdmin, async (req, res) => {
     if (
         req.user.roles === 'admin' ||
         req.user.roles === 'superAdmin' ||

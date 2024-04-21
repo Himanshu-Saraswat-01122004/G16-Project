@@ -1,7 +1,7 @@
 let singInBtn = document.getElementById('signInBtn');
 singInBtn.addEventListener('click', async function (event) {
     event.preventDefault();
-    console.log('executing function');
+    // console.log('executing function');
     let email = document.getElementById('signInEmail').value;
     let password = document.getElementById('signInPassword').value;
     let response = await fetch('/auth/signin', {
@@ -21,6 +21,6 @@ singInBtn.addEventListener('click', async function (event) {
         let result = await response.json();
         console.log(result.accessToken);
         localStorage.setItem('G16-AcessToken', result.accessToken);
-        window.location.href = '/home';
+        window.location.href = '/profile';
     }
 });
