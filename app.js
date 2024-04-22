@@ -55,7 +55,7 @@ app.get('/about', (req, res) => {
     res.render('about.ejs'); // Render the About page
 });
 app.get('/profile', (req, res) => {
-    res.render('profile.ejs'); // Render the About page
+    res.render('profile.ejs');
 });
 
 app.use('/auth', authRoutes);
