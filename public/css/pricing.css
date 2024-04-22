@@ -41,7 +41,7 @@ h2 {
 }
 
 .pricing_card.dark .pricing_purchase-button {
-    border: 1px solid rgb(208, 95, 30);
+    border: 1px solid rgb(225, 225, 225);
 }
 
 .pricing_card.light {
@@ -113,6 +113,9 @@ h2 {
     width: 100%;
     height: 100%;
 }
+.dark_container{
+    color: rgb(255, 255, 255);
+}
 
 .pricing_purchase-button-container .pricing_purchase-button {
     padding: 10px 40px;
@@ -128,7 +131,7 @@ h2 {
 }
 
 .pricing_purchase-button-container .pricing_purchase-button.dark:hover {
-    background-color: indianred;
+    background-color: rgb(255, 255, 255);
     color: #272727;
 }
 

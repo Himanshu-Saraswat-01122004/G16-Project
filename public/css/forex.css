@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rancho&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bakbak+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bakbak+One&display=swap'); */
 :root {
     --primary: #f0f8ff;
 }
@@ -23,12 +23,12 @@ body {
     z-index: 100;
 }
 
-#header .logo {
+/* #header .logo {
     color: var(--primary);
     font-weight: 700;
     font-size: 2em;
     text-decoration: none;
-}
+} */
 
 #header ul {
     display: flex;
@@ -54,6 +54,18 @@ body {
     color: #fff;
 }
 
+#news-container{
+    background: #f0f8ff;
+}
+#exchange h6 {
+    margin-bottom: 0.5rem; /* Add space between each item */
+    font-size: 1rem; /* Set font size */
+    color: #333; /* Set text color */
+}
+
+#exchange h6:last-child {
+    margin-bottom: 0; /* Remove margin bottom for the last item */
+}
 section {
     position: relative;
     width: 100%;
@@ -71,7 +83,6 @@ section::before {
     left: 0;
     width: 100%;
     height: 100px;
-    background: linear-gradient(to top, #f0f8ff, transparent);
     z-index: 10;
 }
 
@@ -83,30 +94,18 @@ section img {
     height: 100%;
     object-fit: cover;
     pointer-events: none;
-}
-
-@keyframes text-animation {
-    0% {
-        color: #40c6ff;
-    }
-    50% {
-        color: #0e1514;
-    }
-    100% {
-        color: #40c6ff;
-    }
+    opacity: 70%;
 }
 
 section #text {
     position: absolute;
-    /* color: black; */
+    color: black;
     font-size: 10vw;
     line-height: .55em;
     font-family: "Bakbak One", sans-serif;
     font-weight: 400;
     font-style: normal;
     transform: translatey(-10%);
-    animation: text-animation 15s infinite;
     /* Adjust the color and blur radius as needed */
 }
 
@@ -132,44 +131,48 @@ section #text span {
 .sec {
     position: relative;
     padding: 100px;
-    background: #f0f8ff;
+    background: white;
 }
 
 .sec h2 {
     font-size: 3.5em;
-    color: #fff;
+    /* color: #fff; */
     margin-bottom: 10px;
+}
+.sec h3 {
+    font-size: 1.25em;
+    /* color: #fff; */
+    margin-bottom: 20px;
 }
 
 .sec p {
     font-size: 1em;
-    color: #fff;
-}
-
-footer {
-    position: relative;
-    padding: 0px 100px;
-    background: var(--primary);
-}
-
-footer a {
-    text-decoration: none;
-    color: #fff;
+    /* color: #fff; */
 }
 
 #loading_container {
     display: none;
-    width: 200px;
+    width: 100%;
     margin-top: 1%;
     margin-left: 45%;
     margin-right: auto;
 }
 
 #currency_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: 5%;
-    margin-left: 18%;
-    margin-right: auto;
 }
+
+#currency_container label {
+    margin-bottom: 10px;
+}
+
+#currency_container select {
+    margin-bottom: 20px;
+}
+
 
 #exchange_chart {
     display: flex;
