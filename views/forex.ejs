@@ -10,15 +10,15 @@
     <link type="text/css" rel="stylesheet" href="css/forex.css">
 </head>
 
+<nav>
+    <%- include('partials/navbar.ejs') %>
+</nav>
 <body>
-    <nav>
-        <%- include('partials/navbar.ejs') %>
-    </nav>
-
+<!-- 
     <Section>
         <img src="img/forex_exchange.jpeg" id="forest">
         <h2 id="text" style="text-align:inherit; vertical-align: middle;">Foreign<br><br>Exchange</h2>
-    </Section>
+    </Section> -->
 
     <div class="sec">
         <div id="currency_container" style="text-align: center;">
@@ -39,29 +39,25 @@
         </div>
         <button id="download_data" onclick="forex_download()" class="btn btn-success">Download Data(CSV)</button>
         <div id="exchange_chart">
-            <div id="exchange"></div>
+            <div id="exchange" class="mt-4"></div>
             <div id="chartContainer"></div>
         </div>
         <div id="table_container"></div>
 
+        <div class="container mx-auto px-4 py-8">
+            <div id="news-container" class="rounded-lg shadow-md p-4">
+                <h2 class="mb-4">Related News:</h2>
+                <!-- News articles will be dynamically inserted here -->
+            </div>
+        </div>
+        
     </div>
-
-    <script>
-        let forest = document.getElementById('forest');
-
-        window.addEventListener('scroll', function () {
-            let value = window.scrollY;
-            forest.style.top = value * .25 + 'px';
-            header.style.top = value * .5 + 'px';
-        })
-    </script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<script src="js/forex.js"></script>
+</body>
 <footer>
     <%- include('partials/footer.ejs') %>
 </footer>
-</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="js/forex.js"></script>
 
 </html>
