@@ -1,6 +1,8 @@
 import  { Router } from 'express';  
 import { Stock } from '../models/stocks.js';
 import verify from '../middleware/verify.js';
+import isAdmin from '../middleware/isAdmin.js';
+import { User } from '../models/users.js';
 
 const router = Router();
 
@@ -34,6 +36,19 @@ router.get('/premiumtest', verify,  async (req, res) => {
         }
     }
     // res.status(200).json({ message: 'Premium data' });  
+});
+
+router.post('/makepermium', isAdmin, async (req, res) => {
+    const username = req.body.username;
+    const user = await User.findOne({ username: username }).exec();
+    if(!user){
+        return res.status(404).json({ message: 'User not found' });
+    }
+    else{
+        user.roles = 'permiumUser';
+        await user.save();
+        res.status(200).json({ message: 'User is now premiumUser' });
+    }
 });
 
 export default router;
