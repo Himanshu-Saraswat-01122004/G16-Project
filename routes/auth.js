@@ -110,8 +110,9 @@ router.delete('/delete/:id', verify, isAdmin, async (req, res) => {
 });
 
 router.post('/logout', verify, (req, res) => {
-    refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
-    res.status(200).json({ message: 'User logged out successfully' });
+    const refreshToken = req.body.token;
+    refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
+    res.status(200).json('You logged out successfully');
 });
 
 export default router;
