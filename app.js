@@ -6,6 +6,7 @@ import stockRoutes from './routes/stocks.js';
 import premiumRoutes from './routes/premium.js';
 import superAdminRoutes from './routes/superadmin.js';
 import updateProfile from './routes/updateProfile.js';
+import fetchStockPrice from './detail.js'
 
 const app = express();
 
@@ -57,6 +58,29 @@ app.get('/about', (req, res) => {
 app.get('/profile', (req, res) => {
     res.render('profile.ejs'); // Render the About page
 });
+app.get('/cal', (req, res) => {
+    res.render('Cal.ejs');
+});
+app.get('/decal', async (req, res) => {
+    const {STOCK, ticker} = req.query;
+    const data = await fetchStockPrice(STOCK, ticker);
+    res.render('decal.ejs', {data});
+});
+
+app.get('/get-price', async (req, res) => {
+    try {
+        const {STOCK, ticker} = req.query;
+        let data = await fetchStockPrice(STOCK, ticker);
+        // console.log(data.price);
+        if(data.price){
+            return res.json(data)
+        } else {
+            // console.log("Cannot get price")
+        }
+    } catch (error) {
+        console.log("Error getting price: ", error)
+    }
+})
 
 app.use('/auth', authRoutes);
 app.use('/stocks', stockRoutes);
