@@ -38,7 +38,7 @@ const generateAccessToken = (user) => {
     return jwt.sign(
         { username: user.username, roles: user.roles },
         'mySecretKey',
-        { expiresIn: '20s' }
+        { expiresIn: '2m' }
     );
 };
 
