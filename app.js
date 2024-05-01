@@ -43,9 +43,9 @@ app.get('/login', (req, res) => {
 app.get('/watchlist', (req, res) => {
     res.render('watchlist.ejs');
 });
-// app.get('/dashboard', (req, res) => {
-//     res.render('dashboard.ejs');
-// });
+app.get('/dashboard', (req, res) => {
+    res.render('dashboard.ejs');
+});
 app.get('/forex', (req, res) => {
     res.render('forex.ejs');
 });
