@@ -1,3 +1,10 @@
+To run the site, make sure you clone the repo into your machine first.
+Check if you have Node.JS, NPM and MongoDB installed properly
+Install the required modules by running
+npm install
+Then run the website by running the command
+npm run start
+
 # Stock Analyzer
 Introduction
 Welcome to our innovative Stock Analysis and Prediction website, where we empower users with insights into the stock market trends. This documentation provides a comprehensive overview of the website's features and functionalities.
@@ -50,7 +57,6 @@ Third-party analyst insights.
 User Comments Section:
 Community engagement with user comments and discussions.
 
-Conclusion
 Our Stock Analysis and Prediction website aim to revolutionize the way users interact with the stock market. With a user-friendly interface and powerful features, we strive to provide valuable insights and a seamless experience for both novice and experienced investors.
 
 Feel free to reach out if you have any specific questions or need further clarification on any aspect of the website. We look forward to presenting this exciting project officially!
