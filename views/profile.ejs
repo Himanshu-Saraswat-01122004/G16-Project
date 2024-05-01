@@ -7,11 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" rel="stylesheet" href="css/profile.css">
 </head>
-
+<nav>
+    <%- include('partials/navbar.ejs') %>
+</nav>
 <body>
     <div class="Profile-Completer-Box">
         <div class="Profile-Completer-Box-Content">
-            <div class="Profile-Completer-Box-Content-Heading">
+            <div class="Profile-Completer-Box-Content-Heading" style="margin-top: 50px;">
                 <h1>Complete Your Profile</h1>
             </div>
             <div class="Profile-Completer-Box-Content-Form">
@@ -70,13 +72,16 @@
                         <label for="pincode">Pincode</label>
                         <input type="text" name="pincode" id="pincode" placeholder="Enter your pincode">
                     </div>
-                    <div class="Profile-Completer-Box-Content-Form-Input">
+                    <!-- <div class="Profile-Completer-Box-Content-Form-Input">
                         <label for="about">About</label>
                         <textarea name="about" id="about" placeholder="Write something about yourself"></textarea>
-                    </div>
+                    </div> -->
 
                     <div class="Profile-Completer-Box-Content-Form-Submit">
                         <button id="submitProfile">Complete</button>
+                    </div>
+                    <div class="Profile-Completer-Box-Content-Form-Delete" style="margin-top: 10px;">
+                        <button id="logOut">Log Out</button>
                     </div>
                 </form>
             </div>
@@ -85,5 +90,10 @@
     <script src="js/profile.js"></script>
 
 </body>
+
+<footer>
+    <%- include('partials/footer.ejs') %>
+</footer>
+
 </html>
 

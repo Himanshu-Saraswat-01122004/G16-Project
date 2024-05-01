@@ -16,7 +16,7 @@ submitButton.addEventListener('click', async function (event) {
     let pincode = document.getElementById('pincode').value;
     let about = document.getElementById('about').value;
 
-    const token = localStorage.getItem('G16-AcessToken');
+    const token = localStorage.getItem('G16-AccessToken');
     // console.log(token);
 
     let response = await fetch('/updateProfile/updateProfilecontent', {
@@ -44,3 +44,14 @@ submitButton.addEventListener('click', async function (event) {
     let result = await response.json();
     console.log(result);
 });
+
+// adding event listner
+let logOutButton = document.getElementById('logOut');
+logOutButton.addEventListener('click', async function (event) {
+    event.preventDefault();
+    localStorage.removeItem('G16-AccessToken');
+
+    console.log('ahfjkfdoijsdfoi');
+    window.location.href = "/login";
+});
+

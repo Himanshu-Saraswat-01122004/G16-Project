@@ -4,7 +4,7 @@ let searchBox = document.querySelector(".search-box .bx-search");
 // let searchBoxCancel = document.querySelector(".search-box .bx-x");
 
 // Retrieve the access token from local storage
-var accessToken = localStorage.getItem('G16-AcessToken');
+var accessToken = localStorage.getItem('G16-AccessToken');
 
 // Check if the access token is available
 if (accessToken) {
@@ -13,29 +13,7 @@ if (accessToken) {
 
     // Find the element whose inner HTML you want to change
     let element = document.getElementById("change");
-    element.innerHTML = "<a href = '#'><i class = 'bx bx-user'></i></a>"
-
-    // // Create an anchor tag for the avatar with the desired URL
-    // let avatarLink = document.createElement("a");
-    // avatarLink.href = "/home"; // Replace "path_to_profile_page" with the actual URL
-    // avatarLink.classList.add("avatar-link");
-
-    // // Create the avatar image
-    // let avatar = document.createElement("box-icon");
-    // // avatar.src = "img/avatar.svg"; // Replace "path_to_avatar_image" with the actual path
-    // // avatar.alt = "Avatar";
-    // // avatar.classList.add("avatar-image");
-    // avatar.name = "user";
-    // avatar.classList.add("nav");
-    // avatar.classList.add("bx-sm");
-    // avatar.classList.add("bx");
-
-    // // Append the avatar image to the anchor tag
-    // avatarLink.appendChild(avatar);
-
-    // // Replace the "login" button with the avatar link
-    // let loginButton = document.querySelector(".login-btn");
-    // loginButton.replaceWith(avatarLink);
+    element.innerHTML = "<a href = '/profile'><i class = 'bx bx-user'></i></a>"
 } else {
     // Handle the case where the access token is not available
     console.log('Access token not found.');

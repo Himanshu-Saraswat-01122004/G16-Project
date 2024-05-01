@@ -20,7 +20,7 @@ singInBtn.addEventListener('click', async function (event) {
     } else {
         let result = await response.json();
         console.log(result.accessToken);
-        localStorage.setItem('G16-AcessToken', result.accessToken);
+        localStorage.setItem('G16-AccessToken', result.accessToken);
         window.location.href = '/profile';
     }
 });
