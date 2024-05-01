@@ -11,7 +11,9 @@
     <link type="text/css" rel="stylesheet" href="css/output.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    
+
+    <link rel="icon" href="img/logo.svg" type="image/x-icon">
+
 </head>
 
 <body>
@@ -22,11 +24,11 @@
 
     <div class="mx-auto my-10 px-10">
         <div class="text-5xl" id="name"><%= data.name%></div>
-        <div class="text-3xl" id="price"><%= data.price %></div>
+        <div class="flex"><div class="text-xl mx-2">Current Price (₹)</div><div class="text-3xl" id="price"><%= data.price %></div></div>
         <hr>
         <div class="flex flex-row justify-between">
-            <div class="text-base/6 w-1/2" id="detail"><%= data.detail %></div>
-            <div class="w-1/2">
+            <div class="text-base/6 w-1/2 mx-4" id="detail"><%= data.detail %></div>
+            <div class="w-1/2 mx-4">
                 <div class="flex justify-between py-2">
                     <div class="font-bold" >PREVIOUS CLOSE</div>
                     <div id="close"><%= data.close %></div>
@@ -69,15 +71,15 @@
             </div>
         </div>
     </div>
-    <footer>
-        <%- include('partials/footer.ejs') %>
-    </footer>
     <!-- <script src="../public/js/detail.js"></script> -->
     <script src="/js/decal.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- <script src="/js/navbar.js"></script> -->
     <!-- <script src="/js/Script.js"></script> -->
 </body>
+<footer>
+    <%- include('partials/footer.ejs') %>
+</footer>
 </html>
 
 
