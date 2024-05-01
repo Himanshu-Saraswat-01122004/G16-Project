@@ -10,7 +10,7 @@ import fetchStockPrice from './detail.js'
 
 const app = express();
 
-app.set('views','views');
+app.set('views', 'views');
 
 app.use(express.static('public'));
 
@@ -61,18 +61,27 @@ app.get('/profile', (req, res) => {
 app.get('/cal', (req, res) => {
     res.render('Cal.ejs');
 });
+app.get('/privacy', (req, res) => {
+    res.render('privacy.ejs');
+});
+app.get('/terms', (req, res) => {
+    res.render('terms.ejs');
+});
+app.get('/disclaimer', (req, res) => {
+    res.render('disclaimer.ejs');
+});
 app.get('/decal', async (req, res) => {
-    const {STOCK, ticker} = req.query;
+    const { STOCK, ticker } = req.query;
     const data = await fetchStockPrice(STOCK, ticker);
-    res.render('decal.ejs', {data});
+    res.render('decal.ejs', { data });
 });
 
 app.get('/get-price', async (req, res) => {
     try {
-        const {STOCK, ticker} = req.query;
+        const { STOCK, ticker } = req.query;
         let data = await fetchStockPrice(STOCK, ticker);
         // console.log(data.price);
-        if(data.price){
+        if (data.price) {
             return res.json(data)
         } else {
             // console.log("Cannot get price")
