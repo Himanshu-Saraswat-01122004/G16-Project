@@ -4,7 +4,7 @@ let searchBox = document.querySelector(".search-box .bx-search");
 // let searchBoxCancel = document.querySelector(".search-box .bx-x");
 
 // Retrieve the access token from local storage
-var accessToken = localStorage.getItem('G16-AcessToken');
+var accessToken = localStorage.getItem('G16-AccessToken');
 
 // Check if the access token is available
 if (accessToken) {
