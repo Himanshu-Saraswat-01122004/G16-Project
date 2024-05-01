@@ -50,8 +50,6 @@ let logOutButton = document.getElementById('logOut');
 logOutButton.addEventListener('click', async function (event) {
     event.preventDefault();
     localStorage.removeItem('G16-AccessToken');
-
-    console.log('ahfjkfdoijsdfoi');
     window.location.href = "/login";
 });
 
