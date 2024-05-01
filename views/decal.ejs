@@ -24,11 +24,11 @@
 
     <div class="mx-auto my-10 px-10">
         <div class="text-5xl" id="name"><%= data.name%></div>
-        <div class="text-3xl" id="price"><%= data.price %></div>
+        <div class="text-3xl" id="price">₹<%= data.price %></div>
         <hr>
         <div class="flex flex-row justify-between">
-            <div class="text-base/6 w-1/2" id="detail"><%= data.detail %></div>
-            <div class="w-1/2">
+            <div class="text-base/6 w-1/2 mx-4" id="detail"><%= data.detail %></div>
+            <div class="w-1/2 mx-4">
                 <div class="flex justify-between py-2">
                     <div class="font-bold" >PREVIOUS CLOSE</div>
                     <div id="close"><%= data.close %></div>
