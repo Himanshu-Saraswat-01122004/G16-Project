@@ -63,11 +63,14 @@ router.post('/signin', async (req, res) => {
         const refreshToken = generateRefreshToken(user);
         refreshTokens.push(refreshToken);
         res.status(200).json({
+
+            user,
             accessToken: accessToken,
             refreshToken: refreshToken,
             message: 'User logged in successfully',
         });
-    } else {
+    }
+     else {
         res.status(401).json({ message: 'Wrong Passwrod' });
     }
 });

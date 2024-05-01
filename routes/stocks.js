@@ -1,5 +1,8 @@
 import  { Router } from 'express';  
 import { Stock } from '../models/stocks.js';
+import { User } from '../models/users.js';
+import verify from '../middleware/verify.js';
+import isAdmin from '../middleware/isAdmin.js';
 
 const router = Router();
 
@@ -34,4 +37,29 @@ router.post('/updateStock', async (req, res) => {
     const stock = await Stock.findOneAndUpdate({ stockId: req.params.stockId }, {...req.body}).exec();
     res.status(200).json({ message: 'Data updated successfully', stock: stock });
 });
+
+router.delete('/deleteStock:id', isAdmin, async (req, res) => {
+    const stock = await Stock.findOneAndDelete({ stockId: req.params.stockId }).exec();
+    res.status(200).json({ message: 'Data deleted successfully', stock: stock });
+});
+
+router.post('/addwatchlist', verify, async (req, res) => {
+    const user = await User.findOne({ username: req.user.username }).exec();
+    const stockid = req.body.stockId;
+    const stock = await Stock.findOne({ stockId: stockid }).exec();
+    user.watchlist.push(stock);
+    await user.save();
+    res.status(200).json({ message: 'Stock added to watchlist', user: user });
+});
+// route for remove watchlist
+
+router.post('/removewatchlist', verify, async (req, res) => {
+    const user = await User.findOne({ username: req.user.username }).exec();
+    const stockid = req.body.stockId;
+    const stock = await Stock.findOne({ stockId: stockid }).exec();
+    user.watchlist.pull(stock);
+    await user.save();
+    res.status(200).json({ message: 'Stock removed from watchlist', user: user });
+});
+
 export default router;
