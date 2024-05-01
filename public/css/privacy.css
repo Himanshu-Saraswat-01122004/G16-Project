@@ -7,8 +7,15 @@
 body {
     line-height: 1.6;
 }
-
-.container {
+.pp_container h1{
+    font-weight: bold;
+    font-size: larger;
+}
+.pp_container h2{
+    font-weight: bold;
+    font-size: large;
+}
+.pp_container {
     width: 80%;
     margin: auto;
     overflow: hidden;
@@ -49,14 +56,4 @@ nav ul li a {
     /* Assuming the height of your header is 100px */
     padding-bottom: 150px;
     /* Adjust based on footer height */
-}
-
-footer {
-    background: #333;
-    color: #fff;
-    text-align: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    width: 100%;
-    bottom: 0;
 }
