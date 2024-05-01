@@ -13,8 +13,7 @@ router.post('/signup', async (req, res) => {
     const user = new User({
         name: req.body.name,
         username: req.body.username,
-        password: hash,
-        roles: req.body.roles,
+        password: hash
     });
 
     const existing = await User.findOne({ username: req.body.username }).exec();
@@ -39,7 +38,7 @@ const generateAccessToken = (user) => {
     return jwt.sign(
         { username: user.username, roles: user.roles },
         'mySecretKey',
-        { expiresIn: '1d' }
+        { expiresIn: '2m' }
     );
 };
 
@@ -58,7 +57,6 @@ router.post('/signin', async (req, res) => {
         res.status(401).json({ message: 'Invalid Credentials' });
         return;
     }
-    // console.log(user);
     const ispassvalid = await bcrypt.compare(password, user.password);
     if (ispassvalid) {
         const accessToken = generateAccessToken(user);
@@ -69,8 +67,6 @@ router.post('/signin', async (req, res) => {
             refreshToken: refreshToken,
             message: 'User logged in successfully',
         });
-        // res.status(200).json({ message: 'User logged in successfully' });
-        // res.redirect('/profile');
     } else {
         res.status(401).json({ message: 'Wrong Passwrod' });
     }
